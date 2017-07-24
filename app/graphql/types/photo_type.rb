@@ -8,4 +8,5 @@ Types::PhotoType = GraphQL::ObjectType.define do
   field :image, Types::ImageType
 
   field :comments, type: types[Types::CommentType]
+  field :user, type: Types::UserType
 end
