@@ -2,19 +2,9 @@ import React from "react"
 import { TextField, Button } from "material-ui"
 import { Link } from "react-router-dom"
 
-const RegisterForm = ({ handleSubmit }) => {
+const LoginForm = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        label="Username"
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Name"
-        fullWidth
-        margin="normal"
-      />
       <TextField
         label="Email"
         fullWidth
@@ -27,10 +17,10 @@ const RegisterForm = ({ handleSubmit }) => {
         margin="normal"
       />
 
-      <Button raised color="primary">Register</Button>
-      <Link to="/login">Login</Link>
+      <Button raised color="primary">Login</Button>
+      <Link to="/register">Register</Link>
     </form>
   )
 }
 
-export default RegisterForm
+export default LoginForm

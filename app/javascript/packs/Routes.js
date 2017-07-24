@@ -6,6 +6,7 @@ import Header from "./components/Header"
 
 import HomePage from "./pages/HomePage"
 import RegisterPage from "./pages/RegisterPage"
+import LoginPage from "./pages/LoginPage"
 
 const styles = {
   container: {
@@ -23,6 +24,7 @@ const Routes = ({ history, ConnectedRouter }) => {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/login" component={LoginPage} />
           </Switch>
         </div>
       </div>
