@@ -9,4 +9,13 @@ Types::QueryType = GraphQL::ObjectType.define do
       User.find_by!(username: args[:username])
     }
   end
+
+  field :photo do
+    type Types::PhotoType
+    argument :id, !types.ID
+
+    resolve ->(obj, args, ctx) {
+      Photo.find(args[:id])
+    }
+  end
 end
