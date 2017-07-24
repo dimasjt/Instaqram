@@ -28,7 +28,7 @@ const RegisterForm = ({ handleSubmit }) => {
       />
 
       <Button raised color="primary">Register</Button>
-      <Link to="/login">Login</Link>
+      <Button component={Link} to="/login">Login</Button>
     </form>
   )
 }
