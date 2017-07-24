@@ -1,47 +1,39 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { AppBar, Toolbar, IconButton, Typography, Button } from "material-ui"
+import MenuIcon from "material-ui-icons/Menu"
+import { withStyles, createStyleSheet } from "material-ui/styles"
+import PropTypes from "prop-types"
 
-const styles = {
-  container: {
-    height: "60px",
+const styleSheet = createStyleSheet("ButtonAppBar", {
+  root: {
+    marginTop: 30,
     width: "100%",
-    position: "fixed",
-    backgroundColor: "rgb(0, 188, 212)",
-    padding: "10px 30px",
   },
-  title: {
-    padding: 0,
-    margin: 0,
-    display: "inline",
+  flex: {
+    flex: 1,
   },
-  containerTitle: {
-    width: "30%",
-    display: "inline-block",
-  },
-  containerMenus: {
-    width: "70%",
-    display: "inline-block",
-  },
-  menus: {
-    listStyle: "none",
-  },
-}
+})
 
-const Header = () => {
+const Header = ({ classes }) => {
   return (
-    <div style={styles.container}>
-      <div style={styles.containerTitle}>
-        <h1 style={styles.title}>Instaqram</h1>
-      </div>
-      <div style={styles.containerMenus}>
-        <ul style={styles.menus}>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/register">Register</Link></li>
-          <li><Link to="/login">Login</Link></li>
-        </ul>
-      </div>
-    </div>
+    <AppBar position="fixed">
+      <Toolbar>
+        <Typography type="title" color="inherit" className={classes.flex}>
+          Instaqram
+        </Typography>
+        {/* <IconButton color="contrast" aria-label="Menu">
+          <MenuIcon />
+        </IconButton> */}
+        <Button color="contrast" component={Link} to="/login">Login</Button>
+        <Button color="contrast" component={Link} to="/register">Register</Button>
+      </Toolbar>
+    </AppBar>
   )
 }
 
-export default Header
+Header.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(styleSheet)(Header)
