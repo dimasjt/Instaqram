@@ -1,0 +1,63 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+  TargetRubyVersion: 2.3.1
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
+
+Style/Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Style/Layout/IndentHeredoc:
+  EnforcedStyle: powerpack
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Lint/UselessAccessModifier:
+  MethodCreatingMethods:
+    - 'def_matcher'
+    - 'def_node_matcher'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Performance/Caller:
+  Exclude:
+    - spec/rubocop/cop/performance/caller_spec.rb
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - double_quotes
+  # If `true`, strings which span multiple lines using `\` for continuation must
+  # use the same type of quotes on each line.
+  ConsistentQuotesInMultiline: false
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - double_quotes
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/DocumentationMethod:
+  RequireForNonPublicMethods: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Documentation:
+  Enabled: false
