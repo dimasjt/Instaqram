@@ -19,9 +19,11 @@ const Header = ({ classes }) => {
   return (
     <AppBar position="fixed">
       <Toolbar>
-        <Typography type="title" color="inherit" className={classes.flex}>
-          Instaqram
-        </Typography>
+        <Link to="/" className={classes.flex}>
+          <Typography type="title" color="contrast">
+            Instaqram
+          </Typography>
+        </Link>
         {/* <IconButton color="contrast" aria-label="Menu">
           <MenuIcon />
         </IconButton> */}
