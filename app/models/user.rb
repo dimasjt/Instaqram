@@ -9,8 +9,19 @@ class User < ApplicationRecord
   validates :username, uniqueness: true, presence: true,
     format: { with: USERNAME_REGEX, message: "only number and letter allowed", allow_blank: true }
 
+  def self.secret_token
+    "secrets"
+  end
+
+  def self.authenticate(token)
+    decoded = JWT.decode(token, User.secret_token).try(:first)
+    User.find(decoded["id"])
+  rescue JWT::DecodeError
+    nil
+  end
+
   def auth_token
-    JWT.encode attribute_token, "secrets"
+    JWT.encode attribute_token, User.secret_token
   end
 
   def attribute_token
