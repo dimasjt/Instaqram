@@ -5,17 +5,29 @@ const RegisterForm = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        label="Email"
+        label="Username"
         fullWidth
+        margin="normal"
       />
       <TextField
-        label="password"
+        label="Name"
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Email"
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Password"
         type="password"
         fullWidth
         margin="normal"
       />
 
       <Button raised color="primary">Register</Button>
+      <Button margin="normal">Login</Button>
     </form>
   )
 }
