@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :photos, dependent: :destroy
+
   validates :username, uniqueness: true, presence: true,
     format: { with: USERNAME_REGEX, message: "only number and letter allowed", allow_blank: true }
 

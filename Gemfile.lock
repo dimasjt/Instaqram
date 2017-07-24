@@ -99,6 +99,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mini_magick (4.7.0)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
     multi_json (1.12.1)
@@ -231,6 +232,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jwt
   listen (>= 3.0.5, < 3.2)
+  mini_magick
   pry-rails
   puma (~> 3.7)
   rails (~> 5.1.1)
