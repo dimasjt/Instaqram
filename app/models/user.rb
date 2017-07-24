@@ -1,8 +1,11 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  USERNAME_REGEX = /\A[a-zA-Z0-9]+\Z/
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  validates :username, uniqueness: true, presence: true,
+    format: { with: USERNAME_REGEX, message: "only number and letter allowed", allow_blank: true }
 
   def auth_token
     JWT.encode attribute_token, "secrets"
