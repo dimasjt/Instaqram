@@ -1,8 +1,23 @@
 class Functions::Register < GraphQL::Function
-  argument :user, !Types::AuthType
+  RegisterInput = GraphQL::InputObjectType.define do
+    name "register"
+
+    argument :email, !types.String
+    argument :password, !types.String
+    argument :name, !types.String
+    argument :username, !types.String
+  end
+
+  argument :user, !RegisterInput
   type Types::TokenType
 
   def call(obj, args, ctx)
-    User.create!(args[:user].to_h)
+    params = args[:user].to_h
+
+    if image = ctx[:files].try(:first)
+      params[:image] = image
+    end
+
+    User.create!(params)
   end
 end

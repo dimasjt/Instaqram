@@ -17,6 +17,11 @@
 #  updated_at             :datetime         not null
 #  username               :string
 #  photos_count           :integer          default(0)
+#  name                   :string
+#  birthdate              :string
+#  caption                :string
+#  website                :string
+#  image                  :string
 #
 # Indexes
 #
