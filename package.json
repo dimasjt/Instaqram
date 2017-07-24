@@ -35,6 +35,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
     "redux-form": "^7.0.1",
+    "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "resolve-url-loader": "^2.1.0",
     "sass-loader": "^6.0.6",
