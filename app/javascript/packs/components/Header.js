@@ -20,7 +20,7 @@ const Header = ({ classes }) => {
     <AppBar position="fixed">
       <Toolbar>
         <Link to="/" className={classes.flex}>
-          <Typography type="title" color="contrast">
+          <Typography type="title" color="accent">
             Instaqram
           </Typography>
         </Link>
