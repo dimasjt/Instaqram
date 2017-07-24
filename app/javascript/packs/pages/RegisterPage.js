@@ -1,4 +1,5 @@
 import React from "react"
+import Card, { CardContent } from "material-ui/Card"
 
 import RegisterForm from "../components/forms/RegisterForm"
 
@@ -13,7 +14,11 @@ export default class RegisterPage extends React.Component {
   render() {
     return (
       <div style={styles.container}>
-        <RegisterForm />
+        <Card>
+          <CardContent>
+            <RegisterForm />
+          </CardContent>
+        </Card>
       </div>
     )
   }

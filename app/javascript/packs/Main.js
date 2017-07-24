@@ -1,5 +1,5 @@
 import React from "react"
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import { MuiThemeProvider } from "material-ui/styles"
 import { ConnectedRouter } from "react-router-redux"
 import { Provider } from "react-redux"
 

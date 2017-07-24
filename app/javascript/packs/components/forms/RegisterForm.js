@@ -1,22 +1,23 @@
 import React from "react"
-import { TextField } from "redux-form-material-ui"
-import { reduxForm, Field } from "redux-form"
+import { TextField, Button } from "material-ui"
 
 const RegisterForm = ({ handleSubmit }) => {
   return (
-    <form>
-      <Field
-        name="email"
-        component={TextField}
-        hintText="Email"
+    <form onSubmit={handleSubmit}>
+      <TextField
+        label="Email"
         fullWidth
-        type="text"
-        floatingLabelText="Email"
       />
+      <TextField
+        label="password"
+        type="password"
+        fullWidth
+        margin="normal"
+      />
+
+      <Button raised color="primary">Register</Button>
     </form>
   )
 }
 
-export default reduxForm({
-  form: "register",
-})(RegisterForm)
+export default RegisterForm
