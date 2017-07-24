@@ -17,6 +17,11 @@
 #  updated_at             :datetime         not null
 #  username               :string
 #  photos_count           :integer          default(0)
+#  name                   :string
+#  birthdate              :string
+#  caption                :string
+#  website                :string
+#  image                  :string
 #
 # Indexes
 #
@@ -28,6 +33,8 @@
 class User < ApplicationRecord
   USERNAME_REGEX = /\A[a-zA-Z0-9]+\Z/
 
+  mount_uploader :image, ImageUploader
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -36,6 +43,7 @@ class User < ApplicationRecord
 
   validates :username, uniqueness: true, presence: true,
     format: { with: USERNAME_REGEX, message: "only number and letter allowed", allow_blank: true }
+  validates :name, presence: true
 
   def self.secret_token
     "secrets"
