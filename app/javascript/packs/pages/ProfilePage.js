@@ -55,21 +55,29 @@ class ProfilePage extends React.Component {
           <Grid item xs={8}>
             <Grid
               container
-              gutter={12}
+              gutter={24}
               direction="column"
               justify="center"
-              align="flex-start"
+              align="stretch"
             >
               <Grid item xs={12}>
-                <Typography component="h2">dimasjt</Typography>
+                <Typography component="h2" type="display1">dimasjt</Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography>Photos 100</Typography>
-                <Typography>Followers 100</Typography>
-                <Typography>Followings 100</Typography>
+                <Grid container direction="row" gutter={24}>
+                  <Grid item xs={3}>
+                    <Typography component="h4" type="subheading">Photos 100</Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography component="h4" type="subheading">Photos 100</Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography component="h4" type="subheading">Photos 100</Typography>
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Typography component="h4">Steven Paul Jobs</Typography>
+                <Typography component="h4" type="title">Steven Paul Jobs</Typography>
                 <Typography component="p">was an American entrepreneur, businessman, inventor, and industrial designer. He was the co-founder, chairman, and chief executive officer of Apple Inc.</Typography>
               </Grid>
             </Grid>
