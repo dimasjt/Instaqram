@@ -29,8 +29,8 @@ class ProfilePage extends React.Component {
 
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((id) => {
       return (
-        <Grid item xs={4}>
-          <PhotoCard onlyMedia key={id} />
+        <Grid item xs={4} key={id}>
+          <PhotoCard onlyMedia />
         </Grid>
       )
     })
@@ -39,7 +39,7 @@ class ProfilePage extends React.Component {
       <div className={classes.root}>
         <Grid
           container
-          gutter={12}
+          gutter={16}
           justify="flex-start"
           align="center"
           direction="row"
