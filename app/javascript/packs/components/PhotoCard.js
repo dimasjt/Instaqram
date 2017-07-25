@@ -2,14 +2,20 @@ import React from "react"
 import Card, { CardContent, CardMedia } from "material-ui/Card"
 import { Typography } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
+import PropTypes from "prop-types"
 
 const styleSheet = createStyleSheet("PhotoCard", (theme) => ({
+  root: {
+    marginBottom: "15px",
+  },
 }))
 
 class PhotoCard extends React.Component {
   render() {
+    const { classes } = this.props
+
     return (
-      <Card>
+      <Card className={classes.root}>
         <CardMedia>
           <img src={"https://material-ui-1dab0.firebaseapp.com/build/abd50bc0e11052fea9669f18f0c017bc.jpg"} alt="Reptile" />
         </CardMedia>
@@ -21,6 +27,10 @@ class PhotoCard extends React.Component {
       </Card>
     )
   }
+}
+
+PhotoCard.propTypes = {
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styleSheet)(PhotoCard)

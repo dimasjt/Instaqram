@@ -17,13 +17,11 @@ const styleSheet = createStyleSheet("HomePage", (theme) => ({
 class HomePage extends React.Component {
   render() {
     const { classes } = this.props
+
+    const list = [1, 2, 3, 4, 5, 6].map((id) => <PhotoCard key={id} />)
     return (
       <div className={classes.container}>
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
+        {list}
       </div>
     )
   }
