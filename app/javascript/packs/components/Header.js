@@ -5,6 +5,8 @@ import MenuIcon from "material-ui-icons/Menu"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 
+import Upload from "./Upload"
+
 const styleSheet = createStyleSheet("ButtonAppBar", {
   root: {
     marginTop: 30,
@@ -27,6 +29,7 @@ const Header = ({ classes }) => {
         {/* <IconButton color="contrast" aria-label="Menu">
           <MenuIcon />
         </IconButton> */}
+        <Upload />
         <Button color="contrast" component={Link} to="/login">Login</Button>
         <Button color="contrast" component={Link} to="/register">Register</Button>
       </Toolbar>
