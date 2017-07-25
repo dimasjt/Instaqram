@@ -1,9 +1,10 @@
 import React from "react"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import { Avatar, Typography, Grid } from "material-ui"
+import { Avatar, Typography, Grid, Button } from "material-ui"
 import PropTypes from "prop-types"
 
 import PhotoCard from "../components/PhotoCard"
+import UpdateProfile from "../components/UpdateProfile"
 
 const styleSheet = createStyleSheet("ProfilePage", (theme) => ({
   root: {
@@ -24,6 +25,11 @@ const styleSheet = createStyleSheet("ProfilePage", (theme) => ({
 }))
 
 class ProfilePage extends React.Component {
+  constructor() {
+    super()
+
+    this.state = { edit: false }
+  }
   render() {
     const { classes } = this.props
 
@@ -62,6 +68,11 @@ class ProfilePage extends React.Component {
             >
               <Grid item xs={12}>
                 <Typography component="h2" type="display1">dimasjt</Typography>
+                <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
+                <UpdateProfile
+                  close={() => this.setState({ edit: false })}
+                  open={this.state.edit}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Grid container direction="row" gutter={24}>
