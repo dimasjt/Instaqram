@@ -43,7 +43,6 @@ class PhotoCard extends React.Component {
 
         {this.isShowed(
           <CardContent>
-            <Typography type="headline" component="h3">Dimas</Typography>
             <Typography component="p">Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
               across all continents except Antarctica</Typography>
           </CardContent>,
