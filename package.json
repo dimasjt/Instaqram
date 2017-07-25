@@ -47,6 +47,12 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "3",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.1.0",
     "webpack-dev-server": "^2.6.1"
   }
 }
