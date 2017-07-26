@@ -1,4 +1,4 @@
-LearnGraphqlSchema = GraphQL::Schema.define do
+InstaqramSchema = GraphQL::Schema.define do
   mutation(Types::MutationType)
   query(Types::QueryType)
 
