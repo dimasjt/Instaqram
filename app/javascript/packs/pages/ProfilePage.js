@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 import PhotoCard from "../components/PhotoCard"
 import UpdateProfile from "../components/UpdateProfile"
 
-const styleSheet = createStyleSheet("ProfilePage", (theme) => ({
+const styleSheet = createStyleSheet("ProfilePage", () => ({
   root: {
     width: "80%",
     margin: "0 auto",
@@ -74,23 +74,31 @@ class ProfilePage extends React.Component {
               align="stretch"
             >
               <Grid item xs={12}>
-                <Typography component="h2" type="display1">dimasjt</Typography>
-                <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
-                <UpdateProfile
-                  close={() => this.setState({ edit: false })}
-                  open={this.state.edit}
-                />
+                <Grid container justify="space-between" align="center">
+                  <Typography component="h2" type="display1">dimasjt</Typography>
+                  <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
+                  <UpdateProfile
+                    close={() => this.setState({ edit: false })}
+                    open={this.state.edit}
+                  />
+                </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Grid container direction="row" gutter={24}>
+                <Grid container direction="row" align="center" gutter={24}>
                   <Grid item xs={3}>
-                    <Typography component="h4" type="subheading">Photos 100</Typography>
+                    <Typography component="h4" type="subheading">
+                      Photos 100
+                    </Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography component="h4" type="subheading">Photos 100</Typography>
+                    <Typography component="h4" type="subheading">
+                      <a>Folowers 100</a>
+                    </Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography component="h4" type="subheading">Photos 100</Typography>
+                    <Typography component="h4" type="subheading">
+                      <a>Followings 100</a>
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
