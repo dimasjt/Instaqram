@@ -1,7 +1,8 @@
 import React from "react"
-import { Grid, Paper, Avatar, Typography } from "material-ui"
+import { Grid, Paper, Avatar, Typography, Button } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import { Link } from "react-router-dom"
+import ThumbUpIcon from "material-ui-icons/ThumbUp"
 import PropTypes from "prop-types"
 
 import Comment from "../components/Comment"
@@ -20,12 +21,13 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
     padding: "10px",
     borderBottom: "1px solid #ccc",
     alignItems: "center",
+    marginRight: "16px",
   },
   username: {
     marginLeft: "20px",
   },
   content: {
-    padding: "8px 16px",
+    padding: "8px 0 8px 16px",
   },
   details: {
     margin: "10px 0",
@@ -83,6 +85,11 @@ class PhotoPage extends React.Component {
                 <div>
                   {comments}
                 </div>
+              </div>
+              <div>
+                <Button disableRipple disableFocusRipple dense>
+                  <ThumbUpIcon />
+                </Button>
               </div>
             </Grid>
           </Grid>
