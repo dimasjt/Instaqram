@@ -50,6 +50,9 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
   caption: {
     paddingBottom: "16px",
   },
+  postComment: {
+    paddingRight: "16px",
+  },
 }))
 
 class PhotoPage extends React.Component {
@@ -106,7 +109,7 @@ class PhotoPage extends React.Component {
                   onClick={() => this.setState({ liked: !this.state.liked })}
                 />
               </div>
-              <div>
+              <div className={classes.postComment}>
                 <PostCommentForm />
               </div>
             </Grid>
