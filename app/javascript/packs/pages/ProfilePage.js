@@ -2,6 +2,7 @@ import React from "react"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import { Avatar, Typography, Grid, Button } from "material-ui"
 import PropTypes from "prop-types"
+import SyncIcon from "material-ui-icons/Sync"
 
 import PhotoCard from "../components/PhotoCard"
 import UpdateProfile from "../components/UpdateProfile"
@@ -21,6 +22,9 @@ const styleSheet = createStyleSheet("ProfilePage", (theme) => ({
   },
   profile: {
     marginBottom: "22px",
+  },
+  center: {
+    textAlign: "center",
   },
 }))
 
@@ -104,6 +108,11 @@ class ProfilePage extends React.Component {
           className={classes.list}
         >
           {list}
+        </Grid>
+        <Grid container gutter={24} align="center" justify="center" direction="row">
+          <Grid item xs={3} className={classes.center}>
+            <Button fab color="primary"><SyncIcon /></Button>
+          </Grid>
         </Grid>
       </div>
     )
