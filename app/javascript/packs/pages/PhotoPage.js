@@ -1,11 +1,12 @@
 import React from "react"
 import { Grid, Paper, Avatar, Typography } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
 import Comment from "../components/Comment"
 import Love from "../components/Love"
+
+import { linkFor } from "../utils/helpers"
 
 const styleSheet = createStyleSheet("PhotoPage", () => ({
   container: {
@@ -46,14 +47,11 @@ class PhotoPage extends React.Component {
 
     this.state = { liked: false }
   }
-  linkFor(component, to) {
-    return <Link to={to}>{component}</Link>
-  }
   render() {
     const { classes } = this.props
 
     const comments = [1, 2, 3, 4, 5, 6].map((id) => {
-      return <Comment linkFor={this.linkFor} key={id} />
+      return <Comment key={id} />
     })
 
     return (
@@ -69,14 +67,14 @@ class PhotoPage extends React.Component {
             </Grid>
             <Grid item xs={4} className={classes.content}>
               <div className={classes.profile}>
-                {this.linkFor(
+                {linkFor(
                   <Avatar
                     src="https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg"
                     alt="Profile"
                   />,
                   "/users/dimasjt",
                 )}
-                {this.linkFor(
+                {linkFor(
                   <Typography component="h3" className={classes.username} type="headline">
                     dimasjt
                   </Typography>,

@@ -5,7 +5,10 @@ import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 
+import Comment from "./Comment"
 import Love from "./Love"
+
+import { isShow } from "../utils/helpers"
 
 const styleSheet = createStyleSheet("PhotoCard", () => ({
   root: {
@@ -22,23 +25,22 @@ class PhotoCard extends React.Component {
 
     this.state = { liked: false }
   }
-  isShowed(component) {
-    return this.props.onlyMedia ? null : component
-  }
   render() {
-    const { classes, raised } = this.props
+    const { classes, raised, onlyMedia } = this.props
 
     const avatar = <Avatar src="https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg" alt="Profile" />
     const username = <Link to={"/users/dimasjt"}>dimasjt</Link>
+    const comments = [1, 2, 3, 4, 5, 6, 7].map((id) => <Comment key={id} />)
 
     return (
       <Card className={classes.root} raised={raised}>
-        {this.isShowed(
+        {isShow(
           <CardHeader
             avatar={avatar}
             title={username}
             subheader="30 Feb 2017"
           />,
+          !onlyMedia,
         )}
         <CardMedia>
           <img
@@ -48,19 +50,23 @@ class PhotoCard extends React.Component {
           />
         </CardMedia>
 
-        {this.isShowed(
+        {isShow(
           <div>
-            <CardContent>
-              <Typography component="p">Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica</Typography>
-            </CardContent>,
             <CardActions>
               <Love
                 liked={this.state.liked}
                 onClick={() => this.setState({ liked: !this.state.liked })}
               />
             </CardActions>
+            <CardContent>
+              <Typography component="p">Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                across all continents except Antarctica</Typography>
+              <div>
+                {comments}
+              </div>
+            </CardContent>
           </div>,
+          !onlyMedia,
         )}
       </Card>
     )

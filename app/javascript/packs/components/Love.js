@@ -1,23 +1,38 @@
 import React from "react"
 import { Favorite, FavoriteBorder } from "material-ui-icons"
-import { IconButton } from "material-ui"
+import { IconButton, Typography } from "material-ui"
+import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 
-const Love = ({ onClick, liked }) => {
+const styleSheet = createStyleSheet("LoveButton", () => ({
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+}))
+
+const Love = ({ onClick, liked, likes, classes }) => {
   return (
-    <IconButton onClick={onClick}>
-      { liked ? <Favorite /> : <FavoriteBorder /> }
-    </IconButton>
+    <div className={classes.container}>
+      <IconButton onClick={onClick}>
+        { liked ? <Favorite /> : <FavoriteBorder /> }
+      </IconButton>
+      <Typography type="body2">{ likes } likes</Typography>
+    </div>
   )
 }
 
 Love.defaultProps = {
   liked: false,
+  likes: 0,
 }
 
 Love.propTypes = {
   liked: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
+  likes: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
-export default Love
+export default withStyles(styleSheet)(Love)

@@ -3,6 +3,8 @@ import { withStyles, createStyleSheet } from "material-ui/styles"
 import { Typography } from "material-ui"
 import PropTypes from "prop-types"
 
+import { linkFor } from "../utils/helpers"
+
 const styleSheet = createStyleSheet("Comment", () => ({
   username: {
     display: "inline",
@@ -13,7 +15,7 @@ const styleSheet = createStyleSheet("Comment", () => ({
   },
 }))
 
-const Comment = ({ classes, linkFor }) => {
+const Comment = ({ classes }) => {
   return (
     <div>
       {linkFor(
@@ -35,7 +37,6 @@ const Comment = ({ classes, linkFor }) => {
 
 Comment.propTypes = {
   classes: PropTypes.object.isRequired,
-  linkFor: PropTypes.func.isRequired,
 }
 
 export default withStyles(styleSheet)(Comment)
