@@ -17,6 +17,12 @@ const styleSheet = createStyleSheet("PhotoCard", () => ({
   block: {
     display: "block",
   },
+  content: {
+    paddingTop: "0",
+  },
+  comments: {
+    marginTop: "10px",
+  },
 }))
 
 class PhotoCard extends React.Component {
@@ -58,10 +64,10 @@ class PhotoCard extends React.Component {
                 onClick={() => this.setState({ liked: !this.state.liked })}
               />
             </CardActions>
-            <CardContent>
+            <CardContent className={classes.content}>
               <Typography component="p">Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
                 across all continents except Antarctica</Typography>
-              <div>
+              <div className={classes.comments}>
                 {comments}
               </div>
             </CardContent>

@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 const styleSheet = createStyleSheet("LoveButton", () => ({
   container: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
 }))
@@ -18,7 +18,7 @@ const Love = ({ onClick, liked, likes, classes }) => {
       <IconButton onClick={onClick}>
         { liked ? <Favorite /> : <FavoriteBorder /> }
       </IconButton>
-      <Typography type="body2">{ likes } likes</Typography>
+      <Typography type="subheading">{ likes } likes</Typography>
     </div>
   )
 }
