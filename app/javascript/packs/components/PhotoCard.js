@@ -1,11 +1,13 @@
 import React from "react"
-import Card, { CardContent, CardMedia, CardHeader } from "material-ui/Card"
+import Card, { CardContent, CardMedia, CardHeader, CardActions } from "material-ui/Card"
 import { Typography, Avatar } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 
-const styleSheet = createStyleSheet("PhotoCard", (theme) => ({
+import Love from "./Love"
+
+const styleSheet = createStyleSheet("PhotoCard", () => ({
   root: {
     marginBottom: "15px",
   },
@@ -15,6 +17,11 @@ const styleSheet = createStyleSheet("PhotoCard", (theme) => ({
 }))
 
 class PhotoCard extends React.Component {
+  constructor() {
+    super()
+
+    this.state = { liked: false }
+  }
   isShowed(component) {
     return this.props.onlyMedia ? null : component
   }
@@ -42,10 +49,18 @@ class PhotoCard extends React.Component {
         </CardMedia>
 
         {this.isShowed(
-          <CardContent>
-            <Typography component="p">Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica</Typography>
-          </CardContent>,
+          <div>
+            <CardContent>
+              <Typography component="p">Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                across all continents except Antarctica</Typography>
+            </CardContent>,
+            <CardActions>
+              <Love
+                liked={this.state.liked}
+                onClick={() => this.setState({ liked: !this.state.liked })}
+              />
+            </CardActions>
+          </div>,
         )}
       </Card>
     )

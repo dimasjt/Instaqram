@@ -1,11 +1,11 @@
 import React from "react"
-import { Grid, Paper, Avatar, Typography, Button } from "material-ui"
+import { Grid, Paper, Avatar, Typography } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import { Link } from "react-router-dom"
-import ThumbUpIcon from "material-ui-icons/ThumbUp"
 import PropTypes from "prop-types"
 
 import Comment from "../components/Comment"
+import Love from "../components/Love"
 
 const styleSheet = createStyleSheet("PhotoPage", () => ({
   container: {
@@ -41,6 +41,11 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
 }))
 
 class PhotoPage extends React.Component {
+  constructor() {
+    super()
+
+    this.state = { liked: false }
+  }
   linkFor(component, to) {
     return <Link to={to}>{component}</Link>
   }
@@ -87,9 +92,10 @@ class PhotoPage extends React.Component {
                 </div>
               </div>
               <div>
-                <Button disableRipple disableFocusRipple dense>
-                  <ThumbUpIcon />
-                </Button>
+                <Love
+                  liked={this.state.liked}
+                  onClick={() => this.setState({ liked: !this.state.liked })}
+                />
               </div>
             </Grid>
           </Grid>
