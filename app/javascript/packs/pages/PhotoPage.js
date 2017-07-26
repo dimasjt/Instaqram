@@ -5,6 +5,7 @@ import PropTypes from "prop-types"
 
 import Comment from "../components/Comment"
 import Love from "../components/Love"
+import PostCommentForm from "../components/forms/PostCommentForm"
 
 import { linkFor } from "../utils/helpers"
 
@@ -12,6 +13,12 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
   container: {
     width: "80%",
     margin: "0 auto",
+  },
+  paper: {
+    height: "80vh",
+  },
+  wrapper: {
+    height: "100%",
   },
   image: {
     width: "100%",
@@ -56,8 +63,8 @@ class PhotoPage extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Paper elevation={2}>
-          <Grid container gutter={0}>
+        <Paper elevation={2} className={classes.paper}>
+          <Grid container gutter={0} align="stretch" justify="center" className={classes.wrapper}>
             <Grid item xs={8}>
               <img
                 src="https://material-ui-1dab0.firebaseapp.com/build/abd50bc0e11052fea9669f18f0c017bc.jpg"
@@ -94,6 +101,9 @@ class PhotoPage extends React.Component {
                   liked={this.state.liked}
                   onClick={() => this.setState({ liked: !this.state.liked })}
                 />
+              </div>
+              <div>
+                <PostCommentForm />
               </div>
             </Grid>
           </Grid>

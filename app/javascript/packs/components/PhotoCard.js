@@ -6,6 +6,7 @@ import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 
 import Comment from "./Comment"
+import PostCommentForm from "./forms/PostCommentForm"
 import Love from "./Love"
 
 import { isShow } from "../utils/helpers"
@@ -18,10 +19,16 @@ const styleSheet = createStyleSheet("PhotoCard", () => ({
     display: "block",
   },
   content: {
-    paddingTop: "0",
+    paddingTop: 0,
+    paddingBottom: "16px",
   },
   comments: {
     marginTop: "10px",
+    marginBottom: "10px",
+  },
+  commentPost: {
+    paddingTop: "10px",
+    borderTop: "1px solid #cccccc",
   },
 }))
 
@@ -69,6 +76,9 @@ class PhotoCard extends React.Component {
                 across all continents except Antarctica</Typography>
               <div className={classes.comments}>
                 {comments}
+              </div>
+              <div className={classes.commentPost}>
+                <PostCommentForm />
               </div>
             </CardContent>
           </div>,
