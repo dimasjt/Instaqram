@@ -20,8 +20,12 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
   wrapper: {
     height: "100%",
   },
+  photoWrapper: {
+    lineHeight: "80vh",
+  },
   image: {
     width: "100%",
+    verticalAlign: "middle",
   },
   profile: {
     display: "flex",
@@ -65,7 +69,7 @@ class PhotoPage extends React.Component {
       <div className={classes.container}>
         <Paper elevation={2} className={classes.paper}>
           <Grid container gutter={0} align="stretch" justify="center" className={classes.wrapper}>
-            <Grid item xs={8}>
+            <Grid item xs={8} className={classes.photoWrapper}>
               <img
                 src="https://material-ui-1dab0.firebaseapp.com/build/abd50bc0e11052fea9669f18f0c017bc.jpg"
                 alt="post"
