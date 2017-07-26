@@ -4,9 +4,12 @@ import { Avatar, Typography, Grid, Button } from "material-ui"
 import PropTypes from "prop-types"
 import SyncIcon from "material-ui-icons/Sync"
 import { Link } from "react-router-dom"
+import { graphql } from "react-apollo"
 
 import PhotoCard from "../components/PhotoCard"
 import UpdateProfile from "../components/UpdateProfile"
+
+import { GET_USER } from "../queries"
 
 const styleSheet = createStyleSheet("ProfilePage", () => ({
   root: {
@@ -36,12 +39,13 @@ class ProfilePage extends React.Component {
     this.state = { edit: false }
   }
   render() {
-    const { classes } = this.props
+    const { classes, data } = this.props
+    console.log(data)
 
-    const list = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((id) => {
+    const list = [1, 2, 3].map((id) => {
       return (
         <Grid item xs={4} key={id}>
-          <Link to="/photos/123">
+          <Link to={`/photos/${id}`}>
             <PhotoCard onlyMedia />
           </Link>
         </Grid>
@@ -130,8 +134,19 @@ class ProfilePage extends React.Component {
   }
 }
 
-ProfilePage.propTypes = {
-  classes: PropTypes.object.isRequired,
+ProfilePage.defaultProps = {
+  data: {
+    user: {
+      photos: [],
+    },
+  },
 }
 
-export default withStyles(styleSheet)(ProfilePage)
+ProfilePage.propTypes = {
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.object,
+}
+
+const WithStyle = withStyles(styleSheet)(ProfilePage)
+
+export default graphql(GET_USER)(WithStyle)
