@@ -1,19 +1,19 @@
 import React from "react"
 import { MuiThemeProvider } from "material-ui/styles"
 import { ConnectedRouter } from "react-router-redux"
-import { Provider } from "react-redux"
+import { ApolloProvider } from "react-apollo"
+
+import { store, history } from "./store"
+import { apolloClient } from "./apollo"
 
 import Routes from "./Routes"
-import { store, history } from "./store"
 
-export default class Main extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <MuiThemeProvider>
-          <Routes history={history} ConnectedRouter={ConnectedRouter} />
-        </MuiThemeProvider>
-      </Provider>
-    )
-  }
+export default () => {
+  return (
+    <ApolloProvider store={store} client={apolloClient}>
+      <MuiThemeProvider>
+        <Routes history={history} ConnectedRouter={ConnectedRouter} />
+      </MuiThemeProvider>
+    </ApolloProvider>
+  )
 }
