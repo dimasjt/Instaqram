@@ -3,6 +3,7 @@ import { withStyles, createStyleSheet } from "material-ui/styles"
 import { Avatar, Typography, Grid, Button } from "material-ui"
 import PropTypes from "prop-types"
 import SyncIcon from "material-ui-icons/Sync"
+import { Link } from "react-router-dom"
 
 import PhotoCard from "../components/PhotoCard"
 import UpdateProfile from "../components/UpdateProfile"
@@ -40,7 +41,9 @@ class ProfilePage extends React.Component {
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((id) => {
       return (
         <Grid item xs={4} key={id}>
-          <PhotoCard onlyMedia />
+          <Link to="/photos/123">
+            <PhotoCard onlyMedia />
+          </Link>
         </Grid>
       )
     })
