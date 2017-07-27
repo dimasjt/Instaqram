@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import PropTypes from "prop-types"
 
 import Header from "./components/Header"
+import Alert from "./components/Alert"
 
 import HomePage from "./pages/HomePage"
 import RegisterPage from "./pages/RegisterPage"
@@ -31,6 +32,8 @@ const Routes = ({ history, ConnectedRouter }) => {
             <Route path="/photos/:id" component={PhotoPage} />
           </Switch>
         </div>
+
+        <Alert />
       </div>
     </ConnectedRouter>
   )
