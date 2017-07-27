@@ -23,7 +23,10 @@ const styles = {
 
 class Routes extends React.Component {
   componentWillMount() {
-    this.props.actions.setUserByToken()
+    const token = window.localStorage.getItem("auth_token")
+    if (token) {
+      this.props.actions.setUserByToken(token)
+    }
   }
   render() {
     const { history, ConnectedRouter } = this.props

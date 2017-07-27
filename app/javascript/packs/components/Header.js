@@ -3,9 +3,13 @@ import { Link } from "react-router-dom"
 import { AppBar, Toolbar, Typography, Button } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import { connect } from "react-redux"
+import { withApollo } from "react-apollo"
+import { bindActionCreators } from "redux"
 import PropTypes from "prop-types"
 
 import Upload from "./Upload"
+
+import { logoutUser } from "../actions/user"
 
 const styleSheet = createStyleSheet("ButtonAppBar", {
   root: {
@@ -21,7 +25,7 @@ const styleSheet = createStyleSheet("ButtonAppBar", {
   },
 })
 
-const Header = ({ classes, currentUser }) => {
+const Header = ({ classes, currentUser, client, actions }) => {
   return (
     <AppBar position="fixed">
       <Toolbar>
@@ -34,7 +38,15 @@ const Header = ({ classes, currentUser }) => {
           currentUser ? (
             <div className={classes.row}>
               <Upload />
-              <Button color="contrast">Logout</Button>
+              <Button
+                color="contrast"
+                onClick={() => {
+                  client.resetStore()
+                  actions.logoutUser()
+                }}
+              >
+                Logout
+              </Button>
             </div>
           ) : (
             <div className={classes.row}>
@@ -48,13 +60,21 @@ const Header = ({ classes, currentUser }) => {
   )
 }
 
+Header.defaultProps = {
+  currentUser: null,
+}
+
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
-  currentUser: PropTypes.object.isRequired,
+  currentUser: PropTypes.object,
+  client: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(Header)
-
-export default connect(
+const Connected = connect(
   (state) => state,
+  (dispatch) => ({ actions: bindActionCreators({ logoutUser }, dispatch) }),
 )(WithStyle)
+
+export default withApollo(Connected)

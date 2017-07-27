@@ -3,11 +3,11 @@ import { decode } from "json-web-token"
 import {
   SET_USER_BY_TOKEN,
   SHOW_ALERT,
+  USER_LOGOUT,
 } from "../constants"
 
-const defaultToken = window.localStorage.getItem("auth_token")
 
-export function setUserByToken(token = defaultToken) {
+export function setUserByToken(token) {
   return (dispatch) => {
     decode("secrets", token, (error, user) => {
       if (error) {
@@ -25,6 +25,15 @@ export function setUserByToken(token = defaultToken) {
           user,
         })
       }
+    })
+  }
+}
+
+export function logoutUser() {
+  return (dispatch) => {
+    window.localStorage.removeItem("auth_token")
+    dispatch({
+      type: USER_LOGOUT,
     })
   }
 }
