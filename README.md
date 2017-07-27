@@ -13,9 +13,9 @@
 
 ## Run Application
 
-## Development
+### Development
 - `rails s`
 - `./bin/webpack-dev-server --hot`
 
-## Production
+### Production
 - nyusul....
