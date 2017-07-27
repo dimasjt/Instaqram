@@ -40,13 +40,14 @@ class ProfilePage extends React.Component {
   }
   render() {
     const { classes, data } = this.props
-    console.log(data)
+    const user = data.user || {}
+    const photos = user.photos || []
 
-    const list = [1, 2, 3].map((id) => {
+    const list = photos.map((photo) => {
       return (
-        <Grid item xs={4} key={id}>
-          <Link to={`/photos/${id}`}>
-            <PhotoCard onlyMedia />
+        <Grid item xs={4} key={photo.id}>
+          <Link to={`/photos/${photo.id}`}>
+            <PhotoCard onlyMedia photo={photo} />
           </Link>
         </Grid>
       )
@@ -79,7 +80,7 @@ class ProfilePage extends React.Component {
             >
               <Grid item xs={12}>
                 <Grid container justify="space-between" align="center">
-                  <Typography component="h2" type="display1">dimasjt</Typography>
+                  <Typography component="h2" type="display1">{user.username}</Typography>
                   <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
                   <UpdateProfile
                     close={() => this.setState({ edit: false })}
@@ -91,7 +92,7 @@ class ProfilePage extends React.Component {
                 <Grid container direction="row" align="center" gutter={24}>
                   <Grid item xs={3}>
                     <Typography component="h4" type="subheading">
-                      Photos 100
+                      Photos {user.photos_count}
                     </Typography>
                   </Grid>
                   <Grid item xs={3}>
@@ -107,8 +108,12 @@ class ProfilePage extends React.Component {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Typography component="h4" type="title">Steven Paul Jobs</Typography>
-                <Typography component="p">was an American entrepreneur, businessman, inventor, and industrial designer. He was the co-founder, chairman, and chief executive officer of Apple Inc.</Typography>
+                <Typography component="h4" type="title">
+                  {user.name}
+                </Typography>
+                <Typography component="p">
+                  {user.caption}
+                </Typography>
               </Grid>
             </Grid>
           </Grid>

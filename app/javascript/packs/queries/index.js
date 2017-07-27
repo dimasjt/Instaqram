@@ -13,6 +13,7 @@ export const GET_USER = gql`
         caption
         image {
           original
+          medium
         }
       }
     }

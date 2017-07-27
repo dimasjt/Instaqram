@@ -17,6 +17,7 @@ const styleSheet = createStyleSheet("PhotoCard", () => ({
   },
   block: {
     display: "block",
+    width: "100%",
   },
   content: {
     paddingTop: 0,
@@ -39,7 +40,7 @@ class PhotoCard extends React.Component {
     this.state = { liked: false }
   }
   render() {
-    const { classes, raised, onlyMedia } = this.props
+    const { classes, raised, onlyMedia, photo } = this.props
 
     const avatar = <Avatar src="https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg" alt="Profile" />
     const username = <Link to={"/users/dimasjt"}>dimasjt</Link>
@@ -57,8 +58,8 @@ class PhotoCard extends React.Component {
         )}
         <CardMedia>
           <img
-            src={"https://material-ui-1dab0.firebaseapp.com/build/abd50bc0e11052fea9669f18f0c017bc.jpg"}
-            alt="Reptile"
+            src={photo.image.medium}
+            alt={photo.caption}
             className={classes.block}
           />
         </CardMedia>
@@ -72,8 +73,9 @@ class PhotoCard extends React.Component {
               />
             </CardActions>
             <CardContent className={classes.content}>
-              <Typography component="p">Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica</Typography>
+              <Typography component="p">
+                {photo.caption}
+              </Typography>
               <div className={classes.comments}>
                 {comments}
               </div>
@@ -92,12 +94,20 @@ class PhotoCard extends React.Component {
 PhotoCard.defaultProps = {
   onlyMedia: false,
   raised: false,
+  photo: {
+    image: {
+      original: "http://danielkitchensandbathrooms.co.uk/wp-content/uploads/2014/04/placeholder-840x630.png",
+      medium: "http://danielkitchensandbathrooms.co.uk/wp-content/uploads/2014/04/placeholder-840x630.png",
+      thumb: "http://danielkitchensandbathrooms.co.uk/wp-content/uploads/2014/04/placeholder-840x630.png",
+    },
+  },
 }
 
 PhotoCard.propTypes = {
   classes: PropTypes.object.isRequired,
   onlyMedia: PropTypes.bool,
   raised: PropTypes.bool,
+  photo: PropTypes.object.isRequired,
 }
 
 export default withStyles(styleSheet)(PhotoCard)
