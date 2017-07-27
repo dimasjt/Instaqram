@@ -23,7 +23,7 @@ const Header = ({ classes }) => {
       <Toolbar>
         <Link to="/" className={classes.flex}>
           <Typography type="title" color="accent">
-            Instaqram
+            Instaqrams
           </Typography>
         </Link>
         {/* <IconButton color="contrast" aria-label="Menu">
