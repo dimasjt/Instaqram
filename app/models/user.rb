@@ -56,14 +56,28 @@ class User < ApplicationRecord
     nil
   end
 
+  def self.exposed_attributes
+    %w[id name email caption website birthdate username image]
+  end
+
   def auth_token
     JWT.encode attribute_token, User.secret_token
   end
 
   def attribute_token
-    {
-      id: id,
-      email: email
-    }
+    Hash[*User.exposed_attributes.map do |a|
+      [a, a.eql?("image") ? decorated_image : send(a)]
+    end.flatten(1)]
+  end
+
+  def decorated_image
+    Hash[*%w[thumb small medium large original].map do |v|
+      url = if v == "original"
+              image.url
+            else
+              image.send(v).url
+            end
+      [v, url]
+    end.flatten]
   end
 end
