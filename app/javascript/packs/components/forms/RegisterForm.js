@@ -3,7 +3,6 @@ import { Button } from "material-ui"
 import { Link } from "react-router-dom"
 import { Field, reduxForm, propTypes } from "redux-form"
 import { TextField } from "@gfpacheco/redux-form-material-ui"
-import PropTypes from "prop-types"
 
 const RegisterForm = ({ handleSubmit }) => {
   return (

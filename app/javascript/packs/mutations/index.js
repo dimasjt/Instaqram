@@ -7,3 +7,11 @@ export const REGISTER = gql`
     }
   }
 `
+
+export const LOGIN = gql`
+  mutation login($user: Auth!) {
+    login(user: $user) {
+      auth_token
+    }
+  }
+`

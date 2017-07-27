@@ -1,26 +1,39 @@
 import React from "react"
-import { TextField, Button } from "material-ui"
+import { Button } from "material-ui"
 import { Link } from "react-router-dom"
+import { TextField } from "@gfpacheco/redux-form-material-ui"
+import { Field, reduxForm, propTypes } from "redux-form"
 
 const LoginForm = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
+      <Field
+        name="email"
+        component={TextField}
+        fullWidth
         label="Email"
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Password"
-        type="password"
-        fullWidth
         margin="normal"
       />
 
-      <Button raised color="primary">Login</Button>
+      <Field
+        name="password"
+        component={TextField}
+        fullWidth
+        label="Password"
+        margin="normal"
+        type="password"
+      />
+
+      <Button raised color="primary" type="submit">Login</Button>
       <Button component={Link} to="/register">Register</Button>
     </form>
   )
 }
 
-export default LoginForm
+LoginForm.propTypes = {
+  ...propTypes,
+}
+
+export default reduxForm({
+  form: "login",
+})(LoginForm)
