@@ -4,12 +4,14 @@ import { reducer as formReducer } from "redux-form"
 
 import { apolloReducer } from "../apollo"
 import alert from "./alert"
+import user from "./user"
 
 const combinedReducers = combineReducers({
   routing,
   form: formReducer,
   apollo: apolloReducer,
   alert,
+  current_user: user,
 })
 
 export default combinedReducers
