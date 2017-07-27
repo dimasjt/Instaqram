@@ -5,6 +5,9 @@ Types::UserType = GraphQL::ObjectType.define do
   field :email, types.String
   field :username, types.String
   field :photos_count, types.Int
+  field :image, Types::ImageType
+  field :website, types.String
+  field :birthdate, types.String
 
   field :photos do
     type types[Types::PhotoType]
