@@ -35,6 +35,7 @@
     "react-apollo": "^1.4.8",
     "react-dom": "^15.6.1",
     "react-dropzone": "^3.13.3",
+    "react-hot-loader": "next",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
     "react-router-redux": "next",
