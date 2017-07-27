@@ -23,6 +23,7 @@
     "glob": "^7.1.2",
     "history": "^4.6.3",
     "js-yaml": "^3.9.0",
+    "json-web-token": "^2.1.3",
     "material-ui": "next",
     "material-ui-icons": "next",
     "node-sass": "^4.5.3",

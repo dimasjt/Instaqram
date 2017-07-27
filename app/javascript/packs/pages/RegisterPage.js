@@ -2,10 +2,17 @@ import React from "react"
 import Card, { CardContent } from "material-ui/Card"
 import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
 
 import RegisterForm from "../components/forms/RegisterForm"
 
+import * as userActions from "../actions/user"
+import * as alertActions from "../actions/alert"
+
 import { REGISTER } from "../mutations"
+
+const mergedActions = Object.assign({}, userActions, alertActions)
 
 const styles = {
   container: {
@@ -17,9 +24,9 @@ const styles = {
 class RegisterPage extends React.Component {
   handleRegister = (values) => {
     this.props.mutate({ variables: { user: values } }).then(({ data }) => {
-      console.log("succ", data)
+      this.props.actions.setUserByToken(data.auth_token)
     }).catch((error) => {
-      console.log("error", error)
+      this.props.actions.showAlert(error.message)
     })
   }
   render() {
@@ -37,6 +44,12 @@ class RegisterPage extends React.Component {
 
 RegisterPage.propTypes = {
   mutate: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
 }
 
-export default graphql(REGISTER)(RegisterPage)
+const Connected = connect(
+  (state) => state,
+  (dispatch) => ({ actions: bindActionCreators(mergedActions, dispatch) }),
+)(RegisterPage)
+
+export default graphql(REGISTER)(Connected)

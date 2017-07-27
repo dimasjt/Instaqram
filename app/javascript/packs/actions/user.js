@@ -1,12 +1,28 @@
+import { decode } from "json-web-token"
+
 import {
-  SET_USER,
+  SET_USER_BY_TOKEN,
+  SHOW_ALERT,
 } from "../constants"
 
-export function setUser(user) {
+export function setUserByToken(token) {
   return (dispatch) => {
-    dispatch({
-      type: SET_USER,
-      user,
+    decode("secrets", token, (error, payload) => {
+      if (error) {
+        dispatch({
+          type: SHOW_ALERT,
+          message: "Token invalid",
+        })
+      }
+
+      if (payload) {
+        window.localStorage.setItem("auth_token", token)
+
+        dispatch({
+          type: SET_USER_BY_TOKEN,
+          payload,
+        })
+      }
     })
   }
 }
