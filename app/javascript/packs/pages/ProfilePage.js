@@ -154,4 +154,6 @@ ProfilePage.propTypes = {
 
 const WithStyle = withStyles(styleSheet)(ProfilePage)
 
-export default graphql(GET_USER)(WithStyle)
+export default graphql(GET_USER, {
+  options: ({ match }) => ({ variables: { username: match.params.username } }),
+})(WithStyle)

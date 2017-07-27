@@ -1,6 +1,7 @@
 import React from "react"
 import { Grid, Paper, Avatar, Typography } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
+import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
 
 import Comment from "../components/Comment"
@@ -8,6 +9,8 @@ import Love from "../components/Love"
 import PostCommentForm from "../components/forms/PostCommentForm"
 
 import { linkFor } from "../utils/helpers"
+
+import { GET_PHOTO } from "../queries"
 
 const styleSheet = createStyleSheet("PhotoPage", () => ({
   container: {
@@ -22,9 +25,11 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
   },
   photoWrapper: {
     lineHeight: "80vh",
+    textAlign: "center",
   },
   image: {
-    width: "100%",
+    maxWidth: "100%",
+    maxHeight: "100%",
     verticalAlign: "middle",
   },
   profile: {
@@ -62,7 +67,9 @@ class PhotoPage extends React.Component {
     this.state = { liked: false }
   }
   render() {
-    const { classes } = this.props
+    const { classes, data } = this.props
+    const { photo } = data
+    const user = photo.user
 
     const comments = [1, 2, 3, 4, 5, 6].map((id) => {
       return <Comment key={id} />
@@ -74,7 +81,7 @@ class PhotoPage extends React.Component {
           <Grid container gutter={0} align="stretch" justify="center" className={classes.wrapper}>
             <Grid item xs={8} className={classes.photoWrapper}>
               <img
-                src="https://material-ui-1dab0.firebaseapp.com/build/abd50bc0e11052fea9669f18f0c017bc.jpg"
+                src={photo.image.original}
                 alt="post"
                 className={classes.image}
               />
@@ -83,21 +90,21 @@ class PhotoPage extends React.Component {
               <div className={classes.profile}>
                 {linkFor(
                   <Avatar
-                    src="https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg"
-                    alt="Profile"
+                    src={user.image.thumb}
+                    alt={user.username}
                   />,
-                  "/users/dimasjt",
+                  `/users/${user.username}`,
                 )}
                 {linkFor(
                   <Typography component="h3" className={classes.username} type="headline">
-                    dimasjt
+                    {user.username}
                   </Typography>,
-                  "/users/dimasjt",
+                  `/users/${user.username}`,
                 )}
               </div>
               <div className={classes.details}>
                 <Typography component="p" className={classes.caption}>
-                  Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services
+                  {photo.caption}
                 </Typography>
                 <div>
                   {comments}
@@ -122,6 +129,11 @@ class PhotoPage extends React.Component {
 
 PhotoPage.propTypes = {
   classes: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 }
 
-export default withStyles(styleSheet)(PhotoPage)
+const WithStyle = withStyles(styleSheet)(PhotoPage)
+
+export default graphql(GET_PHOTO, {
+  options: ({ match }) => ({ variables: { id: match.params.id } }),
+})(WithStyle)
