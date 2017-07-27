@@ -7,7 +7,7 @@ import {
 
 export function setUserByToken(token) {
   return (dispatch) => {
-    decode("secrets", token, (error, payload) => {
+    decode("secrets", token, (error, user) => {
       if (error) {
         dispatch({
           type: SHOW_ALERT,
@@ -15,12 +15,12 @@ export function setUserByToken(token) {
         })
       }
 
-      if (payload) {
+      if (user) {
         window.localStorage.setItem("auth_token", token)
 
         dispatch({
           type: SET_USER_BY_TOKEN,
-          payload,
+          user,
         })
       }
     })

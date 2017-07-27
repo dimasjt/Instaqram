@@ -1,6 +1,6 @@
 import React from "react"
 import Card, { CardContent } from "material-ui/Card"
-import { graphql } from "react-apollo"
+import { graphql, withApollo } from "react-apollo"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
@@ -24,7 +24,7 @@ const styles = {
 class RegisterPage extends React.Component {
   handleRegister = (values) => {
     this.props.mutate({ variables: { user: values } }).then(({ data }) => {
-      this.props.actions.setUserByToken(data.auth_token)
+      this.props.actions.setUserByToken(data.register.auth_token)
     }).catch((error) => {
       this.props.actions.showAlert(error.message)
     })
@@ -52,4 +52,4 @@ const Connected = connect(
   (dispatch) => ({ actions: bindActionCreators(mergedActions, dispatch) }),
 )(RegisterPage)
 
-export default graphql(REGISTER)(Connected)
+export default withApollo(graphql(REGISTER)(Connected))

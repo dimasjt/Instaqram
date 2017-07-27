@@ -11,7 +11,7 @@ const combinedReducers = combineReducers({
   form: formReducer,
   apollo: apolloReducer,
   alert,
-  current_user: user,
+  currentUser: user,
 })
 
 export default combinedReducers
