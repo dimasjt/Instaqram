@@ -8,6 +8,8 @@ Types::UserType = GraphQL::ObjectType.define do
   field :image, Types::ImageType
   field :website, types.String
   field :birthdate, types.String
+  field :name, types.String
+  field :caption, types.String
 
   field :photos do
     type types[Types::PhotoType]

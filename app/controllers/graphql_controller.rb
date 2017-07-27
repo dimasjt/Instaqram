@@ -5,7 +5,12 @@ class GraphqlController < ActionController::Base
     variables = ensure_hash(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-    result = LearnGraphqlSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    result = InstaqramSchema.execute(
+      query,
+      variables: variables,
+      context: context,
+      operation_name: operation_name
+    )
     render json: result
   end
 
