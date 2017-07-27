@@ -5,6 +5,7 @@
     "node": "8"
   },
   "dependencies": {
+    "@gfpacheco/redux-form-material-ui": "v1.0.0-alpha.2",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.25.0",
     "babel-loader": "7.x",

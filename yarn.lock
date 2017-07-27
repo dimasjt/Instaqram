@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@gfpacheco/redux-form-material-ui@v1.0.0-alpha.2":
+  version "1.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@gfpacheco/redux-form-material-ui/-/redux-form-material-ui-1.0.0-alpha.2.tgz#a405593cd20d1ad4d87c42278fa33a6138d5fe66"
+
 "@types/async@^2.0.31":
   version "2.0.40"
   resolved "https://registry.yarnpkg.com/@types/async/-/async-2.0.40.tgz#ac02de68e66c004a61b7cb16df8b1db3a254cca9"
