@@ -6,12 +6,21 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
+Ruby 2.3.3
 
 * System dependencies
 
 * Configuration
 
+- bundle install
+
+- yarn install
+
 * Database creation
+
+- rake db:create
+
+- rake db:migrate
 
 * Database initialization
 
@@ -21,4 +30,8 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* Run application
+
+- rails s
+
+- ./bin/webpack-dev-server --hot
