@@ -5,7 +5,9 @@ import {
   SHOW_ALERT,
 } from "../constants"
 
-export function setUserByToken(token) {
+const defaultToken = window.localStorage.getItem("auth_token")
+
+export function setUserByToken(token = defaultToken) {
   return (dispatch) => {
     decode("secrets", token, (error, user) => {
       if (error) {
