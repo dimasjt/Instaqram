@@ -53,6 +53,10 @@ class ProfilePage extends React.Component {
       )
     })
 
+    if (data.loading) {
+      return null
+    }
+
     return (
       <div className={classes.root}>
         <Grid
@@ -65,7 +69,7 @@ class ProfilePage extends React.Component {
         >
           <Grid item xs={4}>
             <Avatar
-              src="https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg"
+              src={user.image.small}
               alt="Profile"
               className={classes.avatar}
             />
@@ -142,6 +146,7 @@ class ProfilePage extends React.Component {
 ProfilePage.defaultProps = {
   data: {
     user: {
+      image: {},
       photos: [],
     },
   },
@@ -149,7 +154,12 @@ ProfilePage.defaultProps = {
 
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.object,
+  data: PropTypes.shape({
+    user: PropTypes.shape({
+      image: PropTypes.object,
+      photos: PropTypes.array,
+    }),
+  }).isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(ProfilePage)

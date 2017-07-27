@@ -68,8 +68,12 @@ class PhotoPage extends React.Component {
   }
   render() {
     const { classes, data } = this.props
-    const { photo } = data
-    const user = photo.user
+    const photo = data.photo || {}
+    const user = photo.user || {}
+
+    if (data.loading) {
+      return null
+    }
 
     const comments = [1, 2, 3, 4, 5, 6].map((id) => {
       return <Comment key={id} />
@@ -129,7 +133,11 @@ class PhotoPage extends React.Component {
 
 PhotoPage.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    photo: PropTypes.shape({
+      user: PropTypes.object,
+    }),
+  }).isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(PhotoPage)
