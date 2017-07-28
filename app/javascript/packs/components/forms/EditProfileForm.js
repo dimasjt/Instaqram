@@ -1,36 +1,52 @@
 import React from "react"
-import { reduxForm, propTypes } from "redux-form"
-import { TextField } from "material-ui"
-import PropTypes from "prop-types"
+import { Field, reduxForm, propTypes } from "redux-form"
+import { TextField } from "@gfpacheco/redux-form-material-ui"
 
 const EditProfileForm = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit} name="editProfileForm">
-      <TextField
+      <Field
+        name="name"
         label="Name"
+        component={TextField}
         fullWidth
         margin="normal"
       />
-      <TextField
+      <Field
+        name="email"
         label="Email"
+        component={TextField}
         fullWidth
         margin="normal"
       />
-      <TextField
+      <Field
+        name="username"
         label="Username"
+        component={TextField}
         fullWidth
         margin="normal"
       />
-      <TextField
-        label="Password"
+      <Field
+        name="website"
+        label="Website"
+        component={TextField}
         fullWidth
         margin="normal"
       />
-      <TextField
+      <Field
+        name="caption"
         label="Caption"
+        component={TextField}
         fullWidth
         margin="normal"
         multiline
+      />
+      <Field
+        name="password"
+        label="Password"
+        component={TextField}
+        fullWidth
+        margin="normal"
       />
     </form>
   )
