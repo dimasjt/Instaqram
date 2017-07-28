@@ -1,5 +1,5 @@
 import React from "react"
-import { MuiThemeProvider } from "material-ui/styles"
+import { MuiThemeProvider, createMuiTheme } from "material-ui/styles"
 import { ConnectedRouter } from "react-router-redux"
 import { ApolloProvider } from "react-apollo"
 
@@ -8,10 +8,12 @@ import { apolloClient } from "./apollo"
 
 import Routes from "./Routes"
 
+const theme = createMuiTheme()
+
 export default () => {
   return (
     <ApolloProvider store={store} client={apolloClient}>
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
         <Routes history={history} ConnectedRouter={ConnectedRouter} />
       </MuiThemeProvider>
     </ApolloProvider>
