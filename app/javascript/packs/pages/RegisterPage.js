@@ -25,6 +25,7 @@ class RegisterPage extends React.Component {
   handleRegister = (values) => {
     this.props.mutate({ variables: { user: values } }).then(({ data }) => {
       this.props.actions.setUserByToken(data.register.auth_token)
+      this.props.history.push("/")
     }).catch((error) => {
       this.props.actions.showAlert(error.message)
     })
@@ -45,6 +46,7 @@ class RegisterPage extends React.Component {
 RegisterPage.propTypes = {
   mutate: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 const Connected = connect(

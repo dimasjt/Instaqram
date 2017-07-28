@@ -26,6 +26,7 @@ class LoginPage extends React.Component {
     const user = { email: "", password: "", ...values }
     this.props.mutate({ variables: { user } }).then(({ data }) => {
       this.props.actions.setUserByToken(data.login.auth_token)
+      this.props.history.push("/")
     }).catch(({ message }) => {
       this.props.actions.showAlert(message)
     })
@@ -46,6 +47,7 @@ class LoginPage extends React.Component {
 LoginPage.propTypes = {
   actions: PropTypes.object.isRequired,
   mutate: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 const Connected = connect(
