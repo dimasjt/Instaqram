@@ -1,9 +1,10 @@
-import { decode } from "json-web-token"
+import { decode, encode } from "json-web-token"
 
 import {
   SET_USER_BY_TOKEN,
   SHOW_ALERT,
   USER_LOGOUT,
+  USER_UPDATED,
 } from "../constants"
 
 
@@ -34,6 +35,27 @@ export function logoutUser() {
     window.localStorage.removeItem("auth_token")
     dispatch({
       type: USER_LOGOUT,
+    })
+  }
+}
+
+export function setUser(user) {
+  return (dispatch) => {
+    encode("secrets", user, (err, token) => {
+      if (err) {
+        dispatch({
+          type: SHOW_ALERT,
+          message: "Can't encode token",
+        })
+      }
+
+      if (token) {
+        window.localStorage.setItem("auth_token", token)
+        dispatch({
+          type: USER_UPDATED,
+          user,
+        })
+      }
     })
   }
 }
