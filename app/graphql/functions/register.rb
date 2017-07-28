@@ -1,6 +1,6 @@
 class Functions::Register < GraphQL::Function
   RegisterInput = GraphQL::InputObjectType.define do
-    name "register"
+    name "Register"
 
     argument :email, !types.String
     argument :password, !types.String
