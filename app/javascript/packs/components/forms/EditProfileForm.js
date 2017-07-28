@@ -1,6 +1,7 @@
 import React from "react"
 import { Field, reduxForm, propTypes } from "redux-form"
 import { TextField } from "@gfpacheco/redux-form-material-ui"
+import { connect } from "react-redux"
 
 const EditProfileForm = ({ handleSubmit }) => {
   return (
@@ -56,6 +57,12 @@ EditProfileForm.propTypes = {
   ...propTypes,
 }
 
-export default reduxForm({
+const ReduxForm = reduxForm({
   form: "editProfile",
 })(EditProfileForm)
+
+export default connect(
+  (state) => ({
+    initialValues: state.currentUser,
+  }),
+)(ReduxForm)
