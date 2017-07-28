@@ -44,7 +44,6 @@ class UpdateProfile extends React.Component {
           <EditProfileForm onSubmit={this.handleUpdateProfile} />
         </DialogContent>
         <DialogActions>
-          <Button color="primary">Save</Button>
           <Button onClick={close}>Cancel</Button>
         </DialogActions>
       </Dialog>

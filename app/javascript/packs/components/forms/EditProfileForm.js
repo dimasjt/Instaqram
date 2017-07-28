@@ -2,6 +2,7 @@ import React from "react"
 import { Field, reduxForm, propTypes } from "redux-form"
 import { TextField } from "@gfpacheco/redux-form-material-ui"
 import { connect } from "react-redux"
+import { Button } from "material-ui"
 
 const EditProfileForm = ({ handleSubmit }) => {
   return (
@@ -35,6 +36,13 @@ const EditProfileForm = ({ handleSubmit }) => {
         margin="normal"
       />
       <Field
+        name="birthdate"
+        label="Birthdate"
+        component={TextField}
+        fullWidth
+        margin="normal"
+      />
+      <Field
         name="caption"
         label="Caption"
         component={TextField}
@@ -48,7 +56,10 @@ const EditProfileForm = ({ handleSubmit }) => {
         component={TextField}
         fullWidth
         margin="normal"
+        type="password"
       />
+
+      <Button color="primary" type="submit">Save</Button>
     </form>
   )
 }
@@ -62,7 +73,12 @@ const ReduxForm = reduxForm({
 })(EditProfileForm)
 
 export default connect(
-  (state) => ({
-    initialValues: state.currentUser,
-  }),
+  (state) => {
+    const initialValues = Object.assign({}, state.currentUser)
+    delete initialValues.id
+    delete initialValues.image
+    return {
+      initialValues,
+    }
+  },
 )(ReduxForm)

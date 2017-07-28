@@ -39,8 +39,10 @@ export function logoutUser() {
   }
 }
 
-export function setUser(user) {
+export function setUser(param) {
   return (dispatch) => {
+    const user = param
+    delete user.__typename
     encode("secrets", user, (err, token) => {
       if (err) {
         dispatch({
