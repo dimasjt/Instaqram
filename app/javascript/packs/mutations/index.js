@@ -36,3 +36,19 @@ export const UPDATE_PROFILE = gql`
     }
   }
 `
+
+export const POST_PHOTO = gql`
+  mutation postPhoto($photo: PostPhoto!) {
+    postPhoto(photo: $photo) {
+      id
+      caption
+      image {
+        thumb
+        small
+        medium
+        large
+        original
+      }
+    }
+  }
+`

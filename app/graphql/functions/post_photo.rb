@@ -1,6 +1,6 @@
 class Functions::PostPhoto < GraphQL::Function
   PhotoInput = GraphQL::InputObjectType.define do
-    name "post photo"
+    name "PostPhoto"
 
     argument :caption, types.String
   end
