@@ -33,13 +33,13 @@
 class User < ApplicationRecord
   USERNAME_REGEX = /\A[a-zA-Z0-9]+\Z/
 
-  mount_uploader :image, ImageUploader
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :photos, dependent: :destroy
   has_many :likes, dependent: :destroy
+
+  has_one :avatar, as: :imageable
 
   validates :username, uniqueness: true, presence: true,
     format: { with: USERNAME_REGEX, message: "only number and letter allowed", allow_blank: true }
