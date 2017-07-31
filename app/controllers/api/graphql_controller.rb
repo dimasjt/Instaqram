@@ -1,6 +1,4 @@
-class GraphqlController < ActionController::Base
-  before_action :authenticate_by_auth_token
-
+class Api::GraphqlController < Api::BaseController
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -15,14 +13,6 @@ class GraphqlController < ActionController::Base
   end
 
   private
-
-  def authenticate_by_auth_token
-    auth_token = request.headers["Authorization"].try(:sub, /Bearer /, "")
-
-    if auth_token && user = User.authenticate(auth_token)
-      sign_in user, store: false
-    end
-  end
 
   # Handle form data, JSON body, or a blank value
   def ensure_hash(ambiguous_param)

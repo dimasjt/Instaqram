@@ -3,9 +3,12 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
-  devise_for :users
+  namespace :api, default: { format: :json } do
+    post "/graphql", to: "graphql#execute"
+    post "/images", to: "images#create"
+  end
 
-  post "/graphql", to: "graphql#execute"
+  devise_for :users
 
   root to: "pages#home"
 
