@@ -21,7 +21,6 @@
 #  birthdate              :string
 #  caption                :string
 #  website                :string
-#  image                  :string
 #
 # Indexes
 #
@@ -30,14 +29,13 @@
 #  index_users_on_username              (username) UNIQUE
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+FactoryGirl.define do
+  factory :user do
+    sequence(:username) { |n| "coolguy#{n}" }
+    name { Faker::Name.name }
+    email { Faker::Internet.email }
+    password "letmein123!"
+    birthdate { Date.today.to_formatted_s(:db) }
+    website "https://instaqram.com"
+  end
+end

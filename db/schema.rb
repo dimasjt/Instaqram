@@ -10,11 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724083323) do
+ActiveRecord::Schema.define(version: 20170801025720) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "photo_id"
+    t.bigint "user_id"
+    t.bigint "photo_id"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -22,9 +25,21 @@ ActiveRecord::Schema.define(version: 20170724083323) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "images", force: :cascade do |t|
+    t.integer "imageable_id"
+    t.string "imageable_type"
+    t.string "file"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["imageable_id"], name: "index_images_on_imageable_id"
+    t.index ["imageable_type"], name: "index_images_on_imageable_type"
+    t.index ["user_id"], name: "index_images_on_user_id"
+  end
+
   create_table "likes", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "photo_id"
+    t.bigint "user_id"
+    t.bigint "photo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["photo_id"], name: "index_likes_on_photo_id"
@@ -32,9 +47,8 @@ ActiveRecord::Schema.define(version: 20170724083323) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.string "image"
     t.text "caption"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.integer "comments_count", default: 0
     t.integer "likes_count", default: 0
     t.datetime "created_at", null: false
@@ -61,10 +75,13 @@ ActiveRecord::Schema.define(version: 20170724083323) do
     t.string "birthdate"
     t.string "caption"
     t.string "website"
-    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "comments", "photos"
+  add_foreign_key "comments", "users"
+  add_foreign_key "likes", "photos"
+  add_foreign_key "likes", "users"
 end

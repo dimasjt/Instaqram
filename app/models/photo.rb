@@ -3,7 +3,6 @@
 # Table name: photos
 #
 #  id             :integer          not null, primary key
-#  image          :string
 #  caption        :text
 #  user_id        :integer
 #  comments_count :integer          default(0)
@@ -17,11 +16,9 @@
 #
 
 class Photo < ApplicationRecord
-  mount_uploader :image, ImageUploader
-
   belongs_to :user, counter_cache: true
+
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-
-  validates :image, presence: true
+  has_many :images, as: :imageable
 end

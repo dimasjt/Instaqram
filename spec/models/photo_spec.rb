@@ -3,7 +3,6 @@
 # Table name: photos
 #
 #  id             :integer          not null, primary key
-#  image          :string
 #  caption        :text
 #  user_id        :integer
 #  comments_count :integer          default(0)
@@ -16,14 +15,8 @@
 #  index_photos_on_user_id  (user_id)
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+require 'rails_helper'
 
-one:
-  image: MyString
-  caption: MyText
-  belongs_to: 
-
-two:
-  image: MyString
-  caption: MyText
-  belongs_to: 
+RSpec.describe Photo, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
+end

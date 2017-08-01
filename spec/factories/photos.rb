@@ -3,7 +3,6 @@
 # Table name: photos
 #
 #  id             :integer          not null, primary key
-#  image          :string
 #  caption        :text
 #  user_id        :integer
 #  comments_count :integer          default(0)
@@ -16,10 +15,10 @@
 #  index_photos_on_user_id  (user_id)
 #
 
-require 'test_helper'
+FactoryGirl.define do
+  factory :photo do
+    association :user
 
-class PhotoTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+    caption { Faker::Lorem.sentence }
+  end
 end

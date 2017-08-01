@@ -13,6 +13,11 @@
 #  index_likes_on_photo_id  (photo_id)
 #  index_likes_on_user_id   (user_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (photo_id => photos.id)
+#  fk_rails_...  (user_id => users.id)
+#
 
 class Like < ApplicationRecord
   belongs_to :user

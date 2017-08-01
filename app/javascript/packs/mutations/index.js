@@ -38,17 +38,29 @@ export const UPDATE_PROFILE = gql`
 `
 
 export const POST_PHOTO = gql`
-  mutation postPhoto($photo: PostPhoto!) {
-    postPhoto(photo: $photo) {
+  mutation postPhoto($photo: PostPhoto!, $image_id: ID!) {
+    postPhoto(photo: $photo, image_id: $image_id) {
       id
-      caption
-      image {
-        thumb
-        small
-        medium
-        large
-        original
-      }
+    }
+  }
+`
+
+export const LIKE_PHOTO = gql`
+  mutation likePhoto($photo_id: ID!) {
+    likePhoto(photo_id: $photo_id) {
+      id
+      likes_count
+      liked
+    }
+  }
+`
+
+export const UNLIKE_PHOTO = gql`
+  mutation unlikePhoto($photo_id: ID!) {
+    unlikePhoto(photo_id: $photo_id) {
+      id
+      likes_count
+      liked
     }
   }
 `

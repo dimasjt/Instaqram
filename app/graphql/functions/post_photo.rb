@@ -6,19 +6,22 @@ class Functions::PostPhoto < GraphQL::Function
   end
 
   argument :photo, !PhotoInput
+  argument :image_id, types.ID
   type Types::PhotoType
 
   def call(obj, args, ctx)
     if user = ctx[:current_user]
       params = args[:photo].to_h
 
-      if image = ctx[:files].try(:first)
-        params[:image] = image
+      if image = user.temp_images.find(args[:image_id])
+        photo = user.photos.new(params)
+        photo.images = [image]
+        photo.save
+
+        photo
       else
         raise GraphQL::ExecutionError.new("image required")
       end
-
-      user.photos.create(params)
     else
       raise GraphQL::ExecutionError.new("Unauthorized")
     end

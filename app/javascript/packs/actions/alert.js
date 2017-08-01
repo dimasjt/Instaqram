@@ -11,11 +11,12 @@ export function hideAlert() {
   }
 }
 
-export function showAlert(message) {
+export function showAlert(message, action = null) {
   return (dispatch) => {
     dispatch({
       type: SHOW_ALERT,
       message,
+      action,
     })
   }
 }
