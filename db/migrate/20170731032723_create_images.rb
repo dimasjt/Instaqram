@@ -4,6 +4,7 @@ class CreateImages < ActiveRecord::Migration[5.1]
       t.integer :imageable_id
       t.string :imageable_type
       t.string :file
+      t.belongs_to :user
 
       t.timestamps
     end

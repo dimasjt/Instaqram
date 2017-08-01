@@ -17,8 +17,8 @@
 #  index_images_on_user_id         (user_id)
 #
 
-class Image < ApplicationRecord
-  mount_uploader :file, ImageUploader
-
-  belongs_to :imageable, polymorphic: true
+FactoryGirl.define do
+  factory :image do
+    
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731032723) do
+ActiveRecord::Schema.define(version: 20170801025720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,10 +29,12 @@ ActiveRecord::Schema.define(version: 20170731032723) do
     t.integer "imageable_id"
     t.string "imageable_type"
     t.string "file"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["imageable_id"], name: "index_images_on_imageable_id"
     t.index ["imageable_type"], name: "index_images_on_imageable_type"
+    t.index ["user_id"], name: "index_images_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -45,7 +47,6 @@ ActiveRecord::Schema.define(version: 20170731032723) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.string "image"
     t.text "caption"
     t.bigint "user_id"
     t.integer "comments_count", default: 0
@@ -74,7 +75,6 @@ ActiveRecord::Schema.define(version: 20170731032723) do
     t.string "birthdate"
     t.string "caption"
     t.string "website"
-    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

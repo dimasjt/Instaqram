@@ -29,8 +29,13 @@
 #  index_users_on_username              (username) UNIQUE
 #
 
-require 'rails_helper'
-
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+FactoryGirl.define do
+  factory :user do
+    name { Faker::Name.name }
+    email { Faker::Internet.email }
+    password "letmein123!"
+    username { Faker::Internet.user_name(2...8) }
+    birthdate { Date.today.to_formatted_s(:db) }
+    website "https://instaqram.com"
+  end
 end

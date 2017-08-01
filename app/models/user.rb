@@ -21,7 +21,6 @@
 #  birthdate              :string
 #  caption                :string
 #  website                :string
-#  image                  :string
 #
 # Indexes
 #
@@ -38,6 +37,7 @@ class User < ApplicationRecord
 
   has_many :photos, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :temp_images, as: :imageable, dependent: :destroy, class_name: "Image"
 
   has_one :avatar, as: :imageable
 

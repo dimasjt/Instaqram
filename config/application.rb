@@ -27,7 +27,7 @@ module LearnGraphql
       generate.assets false
       generate.view_specs false
       generate.test_framework :rspec
-      generate.factory_girl dir: "factories"
+      generate.factory_girl dir: "spec/factories"
     end
   end
 end

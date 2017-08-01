@@ -15,10 +15,8 @@
 #  index_photos_on_user_id  (user_id)
 #
 
-class Photo < ApplicationRecord
-  belongs_to :user, counter_cache: true
-
-  has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
-  has_many :images, as: :imageable
+FactoryGirl.define do
+  factory :photo do
+    
+  end
 end
