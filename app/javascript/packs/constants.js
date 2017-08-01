@@ -4,3 +4,7 @@ export const HIDE_ALERT = "HIDE_ALERT"
 export const SET_USER_BY_TOKEN = "SET_USER_BY_TOKEN"
 export const USER_LOGOUT = "USER_LOGOUT"
 export const USER_UPDATED = "USER_UPDATED"
+
+export const APOLLO_QUERY_RESULT = "APOLLO_QUERY_RESULT"
+
+export const LOCATION_CHANGE = "@@router/LOCATION_CHANGE"

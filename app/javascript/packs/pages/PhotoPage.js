@@ -2,6 +2,7 @@ import React from "react"
 import { Grid, Paper, Avatar, Typography } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import { graphql } from "react-apollo"
+import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
 import Comment from "../components/Comment"
@@ -18,13 +19,13 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
     margin: "0 auto",
   },
   paper: {
-    height: "80vh",
+    height: "480px",
   },
   wrapper: {
     height: "100%",
   },
   photoWrapper: {
-    lineHeight: "80vh",
+    lineHeight: "480px",
     textAlign: "center",
   },
   image: {
@@ -67,8 +68,8 @@ class PhotoPage extends React.Component {
     this.state = { liked: false }
   }
   render() {
-    const { classes, data } = this.props
-    const photo = data.photo || {}
+    const { classes, data, photos } = this.props
+    const photo = photos.active || {}
     const user = photo.user || {}
 
     if (data.loading) {
@@ -138,10 +139,14 @@ PhotoPage.propTypes = {
       user: PropTypes.object,
     }),
   }).isRequired,
+  photos: PropTypes.object.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(PhotoPage)
+const Connected = connect(
+  (state) => state,
+)(WithStyle)
 
 export default graphql(GET_PHOTO, {
   options: ({ match }) => ({ variables: { id: match.params.id } }),
-})(WithStyle)
+})(Connected)
