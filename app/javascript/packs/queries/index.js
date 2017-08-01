@@ -45,6 +45,14 @@ export const GET_PHOTO = gql`
           thumb
         }
       }
+      comments {
+        id
+        content
+        user {
+          id
+          username
+        }
+      }
     }
   }
 `

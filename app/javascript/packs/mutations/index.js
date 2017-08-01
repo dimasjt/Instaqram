@@ -64,3 +64,16 @@ export const UNLIKE_PHOTO = gql`
     }
   }
 `
+
+export const COMMENT_PHOTO = gql`
+  mutation commentPhoto($photo_id: ID!, $content: String!) {
+    commentPhoto(photo_id: $photo_id, content: $content) {
+      id
+      content
+      user {
+        id
+        username
+      }
+    }
+  }
+`

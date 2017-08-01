@@ -40,6 +40,17 @@ function photos(state = initializeState, action) {
             liked: action.result.data.unlikePhoto.liked,
           },
         }
+      case "commentPhoto":
+        return {
+          ...state,
+          active: {
+            ...state.active,
+            comments: [
+              ...state.active.comments,
+              action.result.data.commentPhoto,
+            ],
+          },
+        }
       default:
         return state
     }

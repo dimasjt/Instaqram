@@ -15,7 +15,7 @@ const styleSheet = createStyleSheet("Comment", () => ({
   },
 }))
 
-const Comment = ({ classes }) => {
+const Comment = ({ classes, comment }) => {
   return (
     <div>
       {linkFor(
@@ -24,12 +24,12 @@ const Comment = ({ classes }) => {
           type="subheading"
           className={classes.username}
         >
-          zuck
+          {comment.user.username}
         </Typography>,
-        "/users/zuck",
+        `/users/${comment.user.username}`,
       )}
       <Typography component="p" className={classes.content}>
-        Looks great!
+        {comment.content}
       </Typography>
     </div>
   )
@@ -37,6 +37,7 @@ const Comment = ({ classes }) => {
 
 Comment.propTypes = {
   classes: PropTypes.object.isRequired,
+  comment: PropTypes.object.isRequired,
 }
 
 export default withStyles(styleSheet)(Comment)

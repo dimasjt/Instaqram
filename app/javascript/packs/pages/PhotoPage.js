@@ -71,8 +71,8 @@ class PhotoPage extends React.Component {
       return null
     }
 
-    const comments = [1, 2, 3, 4, 5, 6].map((id) => {
-      return <Comment key={id} />
+    const comments = photo.comments.map((comment) => {
+      return <Comment key={comment.id} comment={comment} />
     })
 
     return (
@@ -114,7 +114,7 @@ class PhotoPage extends React.Component {
                 <Love photo={photo} />
               </div>
               <div className={classes.postComment}>
-                <PostCommentForm />
+                <PostCommentForm photo={photo} />
               </div>
             </Grid>
           </Grid>
