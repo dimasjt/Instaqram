@@ -41,14 +41,6 @@ export const POST_PHOTO = gql`
   mutation postPhoto($photo: PostPhoto!, $image_id: ID!) {
     postPhoto(photo: $photo, image_id: $image_id) {
       id
-      caption
-      image {
-        thumb
-        small
-        medium
-        large
-        original
-      }
     }
   }
 `

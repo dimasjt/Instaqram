@@ -6,6 +6,7 @@ import {
 const initializeState = {
   message: "",
   open: false,
+  action: null,
 }
 
 function alert(state = initializeState, action) {
@@ -14,11 +15,11 @@ function alert(state = initializeState, action) {
       return {
         message: action.message,
         open: true,
+        action: action.action,
       }
     case HIDE_ALERT:
       return {
-        message: "",
-        open: false,
+        ...initializeState,
       }
     default:
       return state

@@ -71,7 +71,10 @@ class Upload extends React.Component {
     }
     this.props.mutate({ variables }).then(({ data }) => {
       // TODO add action view photo to alert
-      this.props.actions.showAlert("Your photo uploaded.")
+      this.props.actions.showAlert("Your photo uploaded.", {
+        name: "View",
+        to: `/photos/${data.postPhoto.id}`,
+      })
       this.hideDialog()
       this.cleanState()
     }).catch((err) => {
