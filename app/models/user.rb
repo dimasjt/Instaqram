@@ -39,7 +39,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :temp_images, as: :imageable, dependent: :destroy, class_name: "Image"
 
-  has_one :avatar, as: :imageable
+  has_one :image, as: :imageable
 
   validates :username, uniqueness: true, presence: true,
     format: { with: USERNAME_REGEX, message: "only number and letter allowed", allow_blank: true }
@@ -79,5 +79,9 @@ class User < ApplicationRecord
             end
       [v, url]
     end.flatten]
+  end
+
+  def avatar
+    image.nil? ? build_image : image
   end
 end
