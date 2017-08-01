@@ -62,17 +62,12 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
 }))
 
 class PhotoPage extends React.Component {
-  constructor() {
-    super()
-
-    this.state = { liked: false }
-  }
   render() {
     const { classes, data, photos } = this.props
     const photo = photos.active || {}
     const user = photo.user || {}
 
-    if (data.loading) {
+    if (!photos.active || data.loading) {
       return null
     }
 

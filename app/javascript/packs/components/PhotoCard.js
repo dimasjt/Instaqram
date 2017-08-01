@@ -67,10 +67,7 @@ class PhotoCard extends React.Component {
         {isShow(
           <div>
             <CardActions>
-              <Love
-                liked={this.state.liked}
-                onClick={() => this.setState({ liked: !this.state.liked })}
-              />
+              <Love photo={photo} />
             </CardActions>
             <CardContent className={classes.content}>
               <Typography component="p">
