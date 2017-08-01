@@ -7,6 +7,7 @@ end
 
 gem "puma", "~> 3.7"
 gem "rails", "~> 5.1.1"
+gem "pg"
 
 gem "coffee-rails", "~> 4.2"
 gem "sass-rails", "~> 5.0"
@@ -21,7 +22,9 @@ group :development, :test do
   gem "capybara", "~> 2.13"
   gem "selenium-webdriver"
 
-  gem "sqlite3"
+  gem "factory_girl_rails"
+  gem "faker"
+  gem "figaro"
 end
 
 group :test do
@@ -44,10 +47,6 @@ group :development do
   gem "guard-rspec", require: false
 
   gem "rubocop", require: false
-end
-
-group :production do
-  gem "pg"
 end
 
 group :development, :tddium_ignore, :darwin do
