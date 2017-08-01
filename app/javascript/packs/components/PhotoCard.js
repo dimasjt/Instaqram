@@ -44,7 +44,7 @@ class PhotoCard extends React.Component {
 
     const avatar = <Avatar src="https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg" alt="Profile" />
     const username = <Link to={"/users/dimasjt"}>dimasjt</Link>
-    const comments = [1, 2, 3, 4, 5, 6, 7].map((id) => <Comment key={id} />)
+    const comments = [1, 2, 3, 4, 5, 6, 7].map((id) => <Comment key={id} comment={{ id, content: "test", user: { username: "dimasjt" } }} />)
 
     return (
       <Card className={classes.root} raised={raised}>
