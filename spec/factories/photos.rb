@@ -17,6 +17,8 @@
 
 FactoryGirl.define do
   factory :photo do
-    
+    association :user
+
+    caption { Faker::Lorem.sentence }
   end
 end

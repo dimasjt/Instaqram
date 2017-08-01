@@ -19,6 +19,13 @@
 
 FactoryGirl.define do
   factory :image do
-    
+    transient do
+      image_path { Rails.root.join("spec", "fixtures", "images", "example1.jpg") }
+      uploaded_image { Rack::Test::UploadedFile.new(image_path, "image/jpeg") }
+    end
+
+    association :user
+
+    file { uploaded_image }
   end
 end

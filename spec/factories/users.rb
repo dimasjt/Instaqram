@@ -31,10 +31,10 @@
 
 FactoryGirl.define do
   factory :user do
+    sequence(:username) { |n| "coolguy#{n}" }
     name { Faker::Name.name }
     email { Faker::Internet.email }
     password "letmein123!"
-    username { Faker::Internet.user_name(2...8) }
     birthdate { Date.today.to_formatted_s(:db) }
     website "https://instaqram.com"
   end

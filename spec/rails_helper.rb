@@ -10,6 +10,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include ControllerHelpers, type: :controller
+
   config.before(:each, type: :controller) do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
