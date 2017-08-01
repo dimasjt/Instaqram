@@ -44,3 +44,23 @@ export const POST_PHOTO = gql`
     }
   }
 `
+
+export const LIKE_PHOTO = gql`
+  mutation likePhoto($photo_id: ID!) {
+    likePhoto(photo_id: $photo_id) {
+      id
+      likes_count
+      liked
+    }
+  }
+`
+
+export const UNLIKE_PHOTO = gql`
+  mutation unlikePhoto($photo_id: ID!) {
+    unlikePhoto(photo_id: $photo_id) {
+      id
+      likes_count
+      liked
+    }
+  }
+`

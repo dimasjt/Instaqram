@@ -116,10 +116,7 @@ class PhotoPage extends React.Component {
                 </div>
               </div>
               <div>
-                <Love
-                  liked={this.state.liked}
-                  onClick={() => this.setState({ liked: !this.state.liked })}
-                />
+                <Love photo={photo} />
               </div>
               <div className={classes.postComment}>
                 <PostCommentForm />

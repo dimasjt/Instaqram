@@ -30,6 +30,7 @@ export const GET_PHOTO = gql`
       caption
       likes_count
       comments_count
+      liked
       created_at {
         human
       }
