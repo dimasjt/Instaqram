@@ -20,6 +20,8 @@
 class Image < ApplicationRecord
   mount_uploader :file, ImageUploader
 
-  belongs_to :imageable, polymorphic: true
+  belongs_to :imageable, polymorphic: true, required: false
   belongs_to :user
+
+  validates :imageable_type, :file, presence: true
 end

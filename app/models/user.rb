@@ -37,7 +37,7 @@ class User < ApplicationRecord
 
   has_many :photos, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :temp_images, as: :imageable, dependent: :destroy, class_name: "Image"
+  has_many :temp_images, dependent: :destroy, class_name: "Image"
 
   has_one :image, as: :imageable
 

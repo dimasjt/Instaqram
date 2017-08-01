@@ -2,7 +2,7 @@ class Api::ImagesController < Api::BaseController
   before_action :auth_user!
 
   def create
-    @image = Image.new(image_params)
+    @image = current_user.temp_images.new(image_params)
 
     if @image.save
       render json: { id: @image.id }, status: 201
