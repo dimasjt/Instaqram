@@ -38,8 +38,8 @@ export const UPDATE_PROFILE = gql`
 `
 
 export const POST_PHOTO = gql`
-  mutation postPhoto($photo: PostPhoto!) {
-    postPhoto(photo: $photo) {
+  mutation postPhoto($photo: PostPhoto!, $image_id: ID!) {
+    postPhoto(photo: $photo, image_id: $image_id) {
       id
       caption
       image {

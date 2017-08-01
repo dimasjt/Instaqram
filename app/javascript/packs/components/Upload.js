@@ -41,17 +41,25 @@ const styleSheet = createStyleSheet("Upload", () => ({
   },
 }))
 
+const initialState = {
+  open: false,
+  image: null,
+  caption: null,
+  base64Image: null,
+  image_id: null,
+}
+
 class Upload extends React.Component {
   constructor() {
     super()
 
-    this.state = {
-      open: false,
-      image: null,
-      caption: null,
-      base64Image: null,
-      image_id: null,
-    }
+    this.state = Object.assign({}, initialState)
+  }
+  cleanState() {
+    this.setState({
+      ...initialState,
+      open: this.state.open,
+    })
   }
   hideDialog = () => {
     this.setState({ open: false })
@@ -59,30 +67,32 @@ class Upload extends React.Component {
   postPhoto = () => {
     const variables = {
       photo: { caption: this.state.caption },
-      files: this.state.image,
+      image_id: this.state.image_id,
     }
     this.props.mutate({ variables }).then(({ data }) => {
-      console.log(data)
+      // TODO add action view photo to alert
+      this.props.actions.showAlert("Your photo uploaded.")
+      this.hideDialog()
+      this.cleanState()
     }).catch((err) => {
       this.props.actions.showAlert(err.message)
     })
   }
   openImageFile = async (files) => {
-    const that = this
     this.setState({ image: files })
 
     const reader = new FileReader()
     reader.onload = (event) => {
-      that.setState({ base64Image: event.target.result })
+      this.setState({ base64Image: event.target.result })
     }
     reader.readAsDataURL(files[0])
 
     try {
       const result = await upload({ file: files[0], type: "Photo" })
       const json = await result.json()
-      that.setState({ image_id: json.id })
+      this.setState({ image_id: json.id })
     } catch (err) {
-      console.log(err)
+      this.props.actions.showAlert(err.message)
     }
   }
   renderPlaceholder() {
