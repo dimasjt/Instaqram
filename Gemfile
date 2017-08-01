@@ -24,6 +24,13 @@ group :development, :test do
   gem "sqlite3"
 end
 
+group :test do
+  gem "database_cleaner"
+  gem "rspec-rails"
+  gem "shoulda-matchers", git: "https://github.com/thoughtbot/shoulda-matchers.git", branch: "rails-5"
+  gem "simplecov"
+end
+
 group :development do
   gem "annotate"
   gem "graphiql-rails"
@@ -32,11 +39,19 @@ group :development do
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "web-console", ">= 3.3.0"
 
+  gem "guard", require: false
+  gem "guard-bundler", require: false
+  gem "guard-rspec", require: false
+
   gem "rubocop", require: false
 end
 
 group :production do
   gem "pg"
+end
+
+group :development, :tddium_ignore, :darwin do
+  gem "terminal-notifier-guard", require: false # OSX-specific notifications for guard
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
