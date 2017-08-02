@@ -39,11 +39,18 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :temp_images, dependent: :destroy, class_name: "Image"
 
+  with_options join_table: "followships", class_name: "User" do |f|
+    f.has_and_belongs_to_many :followers, foreign_key: "following_id", association_foreign_key: "follower_id"
+    f.has_and_belongs_to_many :followings, foreign_key: "follower_id", association_foreign_key: "following_id"
+  end
+
   has_one :image, as: :imageable
 
   validates :username, uniqueness: true, presence: true,
     format: { with: USERNAME_REGEX, message: "only number and letter allowed", allow_blank: true }
   validates :name, presence: true
+
+  after_create :create_image!
 
   def self.secret_token
     "secrets"
@@ -73,9 +80,9 @@ class User < ApplicationRecord
   def decorated_image
     Hash[*%w[thumb small medium large original].map do |v|
       url = if v == "original"
-              image.url
+              image.file.url
             else
-              image.send(v).url
+              image.file.send(v).url
             end
       [v, url]
     end.flatten]

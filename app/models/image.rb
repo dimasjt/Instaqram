@@ -20,8 +20,9 @@
 class Image < ApplicationRecord
   mount_uploader :file, ImageUploader
 
-  belongs_to :imageable, polymorphic: true, required: false
-  belongs_to :user
+  belongs_to :imageable, polymorphic: true, optional: true
+  belongs_to :user, optional: true
 
-  validates :imageable_type, :file, presence: true
+  validates :imageable_type, presence: true
+  validates :user, :file, presence: { if: proc { |i| i.imageable_type == "Photo" || i.imageable_type.nil? } }
 end

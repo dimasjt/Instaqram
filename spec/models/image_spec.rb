@@ -36,5 +36,22 @@ RSpec.describe Image, type: :model do
       image.save
       expect(image.imageable).to eq(photo)
     end
+
+    context "prsence file and user" do
+      let(:image) { build(:image, imageable: nil, file: nil, user: nil) }
+
+      it "for User" do
+        image.imageable_type = "User"
+        image.valid?
+        expect(image.errors.messages.keys).to_not include %w[user file]
+      end
+
+      it "for Photo" do
+        image.imageable_type = "Photo"
+        image.valid?
+        expect(image.errors.messages.keys).to include :user
+        expect(image.errors.messages.keys).to include :file
+      end
+    end
   end
 end
