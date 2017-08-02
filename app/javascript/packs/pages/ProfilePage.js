@@ -1,6 +1,6 @@
 import React from "react"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import { Avatar, Typography, Grid, Button } from "material-ui"
+import { Avatar, Typography, Grid, Button, Paper } from "material-ui"
 import PropTypes from "prop-types"
 import SyncIcon from "material-ui-icons/Sync"
 import { Link } from "react-router-dom"
@@ -24,6 +24,23 @@ const styleSheet = createStyleSheet("ProfilePage", () => ({
   list: {
     flexGrow: 1,
   },
+  item: {
+    width: "300px",
+    height: "300px",
+    marginBottom: "20px",
+  },
+  itemPaper: {
+    height: "100%",
+    width: "100%",
+    padding: 3,
+    textAlign: "center",
+    lineHeight: "300px",
+  },
+  itemImage: {
+    lineHeight: "300px",
+    maxHeight: "100%",
+    maxWidth: "100%",
+  },
   profile: {
     marginBottom: "22px",
   },
@@ -45,9 +62,12 @@ class ProfilePage extends React.Component {
 
     const list = photos.map((photo) => {
       return (
-        <Grid item xs={4} key={photo.id}>
+        <Grid className={classes.item} item xs={4} key={photo.id}>
           <Link to={`/photos/${photo.id}`}>
-            <PhotoCard onlyMedia photo={photo} />
+            <Paper className={classes.itemPaper} elevation={4}>
+              <img src={photo.image.medium} alt={photo.caption} className={classes.itemImage} />
+              {/* <PhotoCard onlyMedia photo={photo} /> */}
+            </Paper>
           </Link>
         </Grid>
       )
@@ -127,7 +147,7 @@ class ProfilePage extends React.Component {
           container
           align="center"
           direction="row"
-          justify="center"
+          justify="flex-start"
           gutter={24}
           className={classes.list}
         >
