@@ -44,7 +44,7 @@ class PhotoCard extends React.Component {
     const { user } = photo
 
     const avatar = <Avatar src={user.image.thumb} alt={user.username} />
-    const username = <Link to={"/users/dimasjt"}>dimasjt</Link>
+    const username = <Link to={`/users/${user.username}`}>{user.username}</Link>
     const comments = [1, 2, 3, 4, 5, 6, 7].map((id) => <Comment key={id} comment={{ id, content: "test", user: { username: "dimasjt" } }} />)
 
     return (

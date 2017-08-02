@@ -1,4 +1,4 @@
-const token = localStorage.getItem("auth_token")
+const token = () => localStorage.getItem("auth_token")
 const config = (obj) => {
   const formData = new FormData()
   formData.append("file", obj.file)
@@ -7,7 +7,7 @@ const config = (obj) => {
   return {
     method: "POST",
     headers: {
-      authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token()}`,
     },
     body: formData,
   }
