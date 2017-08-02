@@ -4,11 +4,13 @@ import { Avatar, Typography, Grid, Button, Paper } from "material-ui"
 import PropTypes from "prop-types"
 import SyncIcon from "material-ui-icons/Sync"
 import { Link } from "react-router-dom"
-import { graphql } from "react-apollo"
+import { graphql, compose } from "react-apollo"
+import { connect } from "react-redux"
 
 import UpdateProfile from "../components/UpdateProfile"
 
 import { GET_USER } from "../queries"
+import { FOLLOW_USER, UNFOLLOW_USER } from "../mutations"
 
 const styleSheet = createStyleSheet("ProfilePage", () => ({
   root: {
@@ -54,6 +56,16 @@ class ProfilePage extends React.Component {
 
     this.state = { edit: false }
   }
+  follow = () => {
+    this.props.followUser({ variables: { user_id: this.userId } })
+  }
+  ownProfile() {
+    const { currentUser, match } = this.props
+    if (currentUser.username === match.params.username) {
+      return <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
+    }
+    return <Button color="primary" onClick={this.follow}>Follow</Button>
+  }
   render() {
     const { classes, data } = this.props
     const user = data.user || {}
@@ -74,6 +86,8 @@ class ProfilePage extends React.Component {
     if (data.loading) {
       return null
     }
+
+    this.userId = user.id
 
     return (
       <div className={classes.root}>
@@ -103,7 +117,7 @@ class ProfilePage extends React.Component {
               <Grid item xs={12}>
                 <Grid container justify="space-between" align="center">
                   <Typography component="h2" type="display1">{user.username}</Typography>
-                  <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
+                  {this.ownProfile()}
                   <UpdateProfile
                     close={() => this.setState({ edit: false })}
                     open={this.state.edit}
@@ -178,10 +192,21 @@ ProfilePage.propTypes = {
       photos: PropTypes.array,
     }),
   }).isRequired,
+  currentUser: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  followUser: PropTypes.func.isRequired,
+  unfollowUser: PropTypes.func.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(ProfilePage)
+const Connected = connect(
+  (state) => state,
+)(WithStyle)
 
-export default graphql(GET_USER, {
-  options: ({ match }) => ({ variables: { username: match.params.username } }),
-})(WithStyle)
+export default compose(
+  graphql(GET_USER, {
+    options: ({ match }) => ({ variables: { username: match.params.username } }),
+  }),
+  graphql(FOLLOW_USER, { name: "followUser" }),
+  graphql(UNFOLLOW_USER, { name: "unfollowUser" }),
+)(Connected)
