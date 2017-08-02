@@ -15,6 +15,15 @@ Types::UserType = GraphQL::ObjectType.define do
   field :name, types.String
   field :caption, types.String
 
+  field :followed, types.Boolean do
+    resolve ->(obj, args, ctx) {
+      user = ctx[:current_user]
+      return false unless user
+
+      user.followings.where(id: obj.id).present?
+    }
+  end
+
   field :photos do
     type types[Types::PhotoType]
     argument :size, types.Int, default_value: 12

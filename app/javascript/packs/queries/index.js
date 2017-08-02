@@ -8,6 +8,7 @@ export const GET_USER = gql`
       name
       caption
       photos_count
+      followed
       image {
         small
       }
