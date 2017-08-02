@@ -63,11 +63,11 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
 
 class PhotoPage extends React.Component {
   render() {
-    const { classes, data, photos } = this.props
-    const photo = photos.active || {}
+    const { classes, data } = this.props
+    const photo = data.photo || {}
     const user = photo.user || {}
 
-    if (!photos.active || data.loading) {
+    if (data.loading) {
       return null
     }
 
@@ -131,7 +131,6 @@ PhotoPage.propTypes = {
       user: PropTypes.object,
     }),
   }).isRequired,
-  photos: PropTypes.object.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(PhotoPage)
