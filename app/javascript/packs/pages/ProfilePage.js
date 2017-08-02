@@ -4,13 +4,13 @@ import { Avatar, Typography, Grid, Button, Paper } from "material-ui"
 import PropTypes from "prop-types"
 import SyncIcon from "material-ui-icons/Sync"
 import { Link } from "react-router-dom"
-import { graphql, compose } from "react-apollo"
+import { graphql } from "react-apollo"
 import { connect } from "react-redux"
 
 import UpdateProfile from "../components/UpdateProfile"
 
 import { GET_USER } from "../queries"
-import { FOLLOW_USER, UNFOLLOW_USER } from "../mutations"
+import { FOLLOW_USER } from "../mutations"
 
 const styleSheet = createStyleSheet("ProfilePage", () => ({
   root: {
@@ -57,11 +57,7 @@ class ProfilePage extends React.Component {
     this.state = { edit: false }
   }
   follow = () => {
-    if (this.user.followed) {
-      this.props.unfollowUser({ variables: { user_id: this.user.id } })
-    } else {
-      this.props.followUser({ variables: { user_id: this.user.id } })
-    }
+    this.props.followUser(this.user.id)
   }
   ownProfile() {
     const { currentUser, match } = this.props
@@ -206,7 +202,6 @@ ProfilePage.propTypes = {
   currentUser: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   followUser: PropTypes.func.isRequired,
-  unfollowUser: PropTypes.func.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(ProfilePage)
@@ -214,10 +209,27 @@ const Connected = connect(
   (state) => state,
 )(WithStyle)
 
-export default compose(
-  graphql(GET_USER, {
-    options: ({ match }) => ({ variables: { username: match.params.username } }),
+const WithData = graphql(GET_USER, {
+  options: ({ match }) => ({ variables: { username: match.params.username } }),
+})(Connected)
+
+export default graphql(FOLLOW_USER, {
+  props: ({ ownProps, mutate }) => ({
+    followUser: (userId) => {
+      mutate({
+        variables: { user_id: userId },
+        update: (store, { data: { follow } }) => {
+          const query = { query: GET_USER, variables: { username: ownProps.match.params.username } }
+          const prevData = store.readQuery(query)
+          const newData = Object.assign({}, prevData, {
+            user: {
+              ...prevData.user,
+              followed: !!follow,
+            },
+          })
+          store.writeQuery({ ...query, data: newData })
+        },
+      })
+    },
   }),
-  graphql(FOLLOW_USER, { name: "followUser" }),
-  graphql(UNFOLLOW_USER, { name: "unfollowUser" }),
-)(Connected)
+})(WithData)

@@ -10,6 +10,5 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :likePhoto, function: Functions::LikePhoto.new
   field :unlikePhoto, function: Functions::UnlikePhoto.new
 
-  field :follow, function: Functions::Followship.new(:follow)
-  field :unfollow, function: Functions::Followship.new(:unfollow)
+  field :follow, function: Functions::Followship.new
 end

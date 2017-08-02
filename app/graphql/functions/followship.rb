@@ -1,39 +1,25 @@
 class Functions::Followship < GraphQL::Function
-  attr_reader :follow_type
-
-  def initialize(type)
-    @is_follow = type == :follow
-    @follow_type = type
-  end
-
-  def is_follow?
-    @is_follow
-  end
-
   argument :user_id, !types.ID
-  type Types::UserType
+  type types.Boolean
 
   def call(obj, args, ctx)
-    if current_user = ctx[:current_user]
-      user = User.find(args[:user_id])
-      f = followship(current_user, user)
+    if @current_user = ctx[:current_user]
+      @user = User.find(args[:user_id])
 
-      if is_follow?
-        return GraphQL::ExecutionError.new("Already follow") if f.present?
-        current_user.followings << user
-        current_user.save
+      if followship
+        @current_user.followings.delete(@user)
       else
-        return GraphQL::ExecutionError.new("You are not follow #{user.username}") unless f.present?
-        current_user.followings.delete(f)
+        @current_user.followings << @user
+        @current_user.save
       end
 
-      user
+      followship && followship.persisted?
     else
       GraphQL::ExecutionError.new("Unauthorized")
     end
   end
 
-  def followship(current_user, user)
-    @followship ||= current_user.followings.where(id: user.id).first
+  def followship
+    ::Followship.where(follower: @current_user, following: @user).first
   end
 end

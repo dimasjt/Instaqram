@@ -80,18 +80,6 @@ export const COMMENT_PHOTO = gql`
 
 export const FOLLOW_USER = gql`
   mutation follow($user_id: ID!) {
-    follow(user_id: $user_id) {
-      id
-      username
-    }
-  }
-`
-
-export const UNFOLLOW_USER = gql`
-  mutation unfollow($user_id: ID!) {
-    unfollow(user_id: $user_id) {
-      id
-      username
-    }
+    follow(user_id: $user_id)
   }
 `
