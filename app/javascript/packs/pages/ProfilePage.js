@@ -6,7 +6,6 @@ import SyncIcon from "material-ui-icons/Sync"
 import { Link } from "react-router-dom"
 import { graphql } from "react-apollo"
 
-import PhotoCard from "../components/PhotoCard"
 import UpdateProfile from "../components/UpdateProfile"
 
 import { GET_USER } from "../queries"
@@ -66,7 +65,6 @@ class ProfilePage extends React.Component {
           <Link to={`/photos/${photo.id}`}>
             <Paper className={classes.itemPaper} elevation={4}>
               <img src={photo.image.medium} alt={photo.caption} className={classes.itemImage} />
-              {/* <PhotoCard onlyMedia photo={photo} /> */}
             </Paper>
           </Link>
         </Grid>
