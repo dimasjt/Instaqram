@@ -41,8 +41,9 @@ class PhotoCard extends React.Component {
   }
   render() {
     const { classes, raised, onlyMedia, photo } = this.props
+    const { user } = photo
 
-    const avatar = <Avatar src="https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg" alt="Profile" />
+    const avatar = <Avatar src={user.image.thumb} alt={user.username} />
     const username = <Link to={"/users/dimasjt"}>dimasjt</Link>
     const comments = [1, 2, 3, 4, 5, 6, 7].map((id) => <Comment key={id} comment={{ id, content: "test", user: { username: "dimasjt" } }} />)
 
@@ -52,7 +53,7 @@ class PhotoCard extends React.Component {
           <CardHeader
             avatar={avatar}
             title={username}
-            subheader="30 Feb 2017"
+            subheader={photo.created_at.human}
           />,
           !onlyMedia,
         )}

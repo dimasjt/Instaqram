@@ -1,6 +1,9 @@
 import React from "react"
 import { withStyles, createStyleSheet } from "material-ui/styles"
+import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
+
+import { GET_FEED } from "../queries"
 
 import PhotoCard from "../components/PhotoCard"
 
@@ -16,9 +19,13 @@ const styleSheet = createStyleSheet("HomePage", (theme) => ({
 
 class HomePage extends React.Component {
   render() {
-    const { classes } = this.props
+    const { classes, data } = this.props
 
-    const list = [1, 2, 3, 4, 5, 6].map((id) => <PhotoCard key={id} />)
+    if (data.loading) {
+      return null
+    }
+
+    const list = data.feed.map((photo) => <PhotoCard key={photo.id} photo={photo} />)
     return (
       <div className={classes.container}>
         {list}
@@ -29,6 +36,9 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 }
 
-export default withStyles(styleSheet)(HomePage)
+const WithStyle = withStyles(styleSheet)(HomePage)
+
+export default graphql(GET_FEED)(WithStyle)
