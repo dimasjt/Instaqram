@@ -18,4 +18,7 @@ Types::QueryType = GraphQL::ObjectType.define do
       Photo.find(args[:id])
     }
   end
+
+  field :followers, function: Functions::FollowshipQuery.new(:followers)
+  field :followings, function: Functions::FollowshipQuery.new(:followings)
 end
