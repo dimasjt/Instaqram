@@ -80,4 +80,21 @@ RSpec.describe User, type: :model do
       expect(user.attribute_token.deep_symbolize_keys).to eq attrs
     end
   end
+
+  describe "#feed" do
+    let!(:following) { create(:user) }
+    let!(:user) { create(:user) }
+
+    before { user.followings << following }
+
+    it "should return following user photos" do
+      create_list(:photo, 2, user: following)
+      expect(user.feed).to eq following.photos.order(created_at: :desc)
+    end
+
+    it "should include own photos" do
+      create_list(:photo, 2, user: user)
+      expect(user.feed).to eq user.photos.order(created_at: :desc)
+    end
+  end
 end

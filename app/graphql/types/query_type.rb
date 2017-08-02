@@ -21,4 +21,16 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :followers, function: Functions::FollowshipQuery.new(:followers)
   field :followings, function: Functions::FollowshipQuery.new(:followings)
+
+  field :feed do
+    type types[Types::PhotoType]
+    argument :size, types.Int
+    resolve ->(obj, args, ctx) {
+      if current_user = ctx[:current_user]
+        current_user.feed
+      else
+        Photo.none
+      end
+    }
+  end
 end

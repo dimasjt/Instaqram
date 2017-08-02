@@ -91,4 +91,8 @@ class User < ApplicationRecord
   def avatar
     image.nil? ? build_image : image
   end
+
+  def feed
+    Photo.where(user_id: following_ids.push(id)).order(created_at: :desc)
+  end
 end
