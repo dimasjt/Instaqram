@@ -2,11 +2,12 @@ import React from "react"
 import { Favorite, FavoriteBorder } from "material-ui-icons"
 import { IconButton, Typography } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import { graphql, compose } from "react-apollo"
+import { graphql } from "react-apollo"
 import pl from "pluralize"
 import PropTypes from "prop-types"
 
-import { LIKE_PHOTO, UNLIKE_PHOTO } from "../mutations"
+import { GET_PHOTO } from "../queries"
+import { LIKE_PHOTO } from "../mutations"
 
 const styleSheet = createStyleSheet("LoveButton", () => ({
   container: {
@@ -18,11 +19,7 @@ const styleSheet = createStyleSheet("LoveButton", () => ({
 
 class Love extends React.Component {
   onClick = () => {
-    if (this.props.photo.liked) {
-      this.props.unlikePhoto({ variables: { photo_id: this.props.photo.id } })
-    } else {
-      this.props.likePhoto({ variables: { photo_id: this.props.photo.id } })
-    }
+    this.props.likePhoto(this.props.photo.id)
   }
   render() {
     const { classes, photo } = this.props
@@ -41,12 +38,28 @@ Love.propTypes = {
   photo: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   likePhoto: PropTypes.func.isRequired,
-  unlikePhoto: PropTypes.func.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(Love)
 
-export default compose(
-  graphql(LIKE_PHOTO, { name: "likePhoto" }),
-  graphql(UNLIKE_PHOTO, { name: "unlikePhoto" }),
-)(WithStyle)
+export default graphql(LIKE_PHOTO, {
+  props: ({ ownProps, mutate }) => ({
+    likePhoto: (photoId) => {
+      mutate({
+        variables: { photo_id: photoId },
+        update(store, { data: { likePhoto } }) {
+          const query = { query: GET_PHOTO, variables: { id: ownProps.photo.id } }
+          const prevData = store.readQuery(query)
+          const newData = Object.assign({}, prevData, {
+            photo: {
+              ...prevData.photo,
+              likes_count: likePhoto.likes_count,
+              liked: likePhoto.liked,
+            },
+          })
+          store.writeQuery({ ...query, data: newData })
+        },
+      })
+    },
+  }),
+})(WithStyle)
