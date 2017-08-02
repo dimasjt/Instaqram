@@ -10,13 +10,14 @@
 #
 # Indexes
 #
-#  index_followships_on_follower_id   (follower_id)
-#  index_followships_on_following_id  (following_id)
+#  index_followships_on_follower_id                   (follower_id)
+#  index_followships_on_follower_id_and_following_id  (follower_id,following_id) UNIQUE
+#  index_followships_on_following_id                  (following_id)
 #
 
 class Followship < ApplicationRecord
   belongs_to :follower, class_name: "User"
   belongs_to :following, class_name: "User"
 
-  validates :follower_id, uniqueness: { scope: :following_id, message: "already follow user" }
+  validates :follower, uniqueness: { scope: :following, message: "already follow user" }
 end

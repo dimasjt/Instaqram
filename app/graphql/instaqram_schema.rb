@@ -9,4 +9,8 @@ InstaqramSchema = GraphQL::Schema.define do
   rescue_from ActiveRecord::RecordInvalid do |e|
     e.message
   end
+
+  rescue_from ActiveRecord::RecordNotUnique do |e|
+    e.message
+  end
 end

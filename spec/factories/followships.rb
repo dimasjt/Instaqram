@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_followships_on_follower_id   (follower_id)
-#  index_followships_on_following_id  (following_id)
+#  index_followships_on_follower_id                   (follower_id)
+#  index_followships_on_follower_id_and_following_id  (follower_id,following_id) UNIQUE
+#  index_followships_on_following_id                  (following_id)
 #
 
 FactoryGirl.define do
