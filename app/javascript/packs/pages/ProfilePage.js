@@ -57,14 +57,25 @@ class ProfilePage extends React.Component {
     this.state = { edit: false }
   }
   follow = () => {
-    this.props.followUser({ variables: { user_id: this.userId } })
+    if (this.user.followed) {
+      this.props.unfollowUser({ variables: { user_id: this.user.id } })
+    } else {
+      this.props.followUser({ variables: { user_id: this.user.id } })
+    }
   }
   ownProfile() {
     const { currentUser, match } = this.props
     if (currentUser.username === match.params.username) {
       return <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
     }
-    return <Button color="primary" onClick={this.follow}>Follow</Button>
+    return (
+      <Button
+        color="primary"
+        onClick={this.follow}
+      >
+        {this.user.followed ? "Unfollow" : "Follow"}
+      </Button>
+    )
   }
   render() {
     const { classes, data } = this.props
@@ -87,7 +98,7 @@ class ProfilePage extends React.Component {
       return null
     }
 
-    this.userId = user.id
+    this.user = user
 
     return (
       <div className={classes.root}>
