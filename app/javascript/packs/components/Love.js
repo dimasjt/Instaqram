@@ -6,7 +6,6 @@ import { graphql } from "react-apollo"
 import pl from "pluralize"
 import PropTypes from "prop-types"
 
-import { GET_PHOTO, GET_FEED } from "../queries"
 import { LIKE_PHOTO } from "../mutations"
 
 const styleSheet = createStyleSheet("LoveButton", () => ({
@@ -65,18 +64,6 @@ export default graphql(LIKE_PHOTO, {
                 return p
               }),
             })
-            // return Object.assign({}, prev, {
-            //   feed: prev.feed.map((p) => {
-            //     if (p.id === photoId) {
-            //       return {
-            //         ...p,
-            //         liked: likePhoto.liked,
-            //         likes_count: likePhoto.likes_count,
-            //       }
-            //     }
-            //     return prev
-            //   }),
-            // })
           },
         },
       })
