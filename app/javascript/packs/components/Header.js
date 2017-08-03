@@ -1,7 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { AppBar, Toolbar, Typography, Button } from "material-ui"
+import { AppBar, Toolbar, Typography, Button, Avatar, IconButton } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
+import Menu, { MenuItem } from "material-ui/Menu"
 import { connect } from "react-redux"
 import { withApollo } from "react-apollo"
 import { bindActionCreators } from "redux"
@@ -11,7 +12,7 @@ import Upload from "./Upload"
 
 import { logoutUser } from "../actions/user"
 
-const styleSheet = createStyleSheet("ButtonAppBar", {
+const styleSheet = createStyleSheet("ButtonAppBar", (theme) => ({
   root: {
     marginTop: 30,
     width: "100%",
@@ -23,42 +24,69 @@ const styleSheet = createStyleSheet("ButtonAppBar", {
     display: "flex",
     flexDirection: "row",
   },
-})
+  appBar: {
+    backgroundColor: theme.light,
+  },
+  toolbarRoot: {
+    paddingLeft: "140px",
+    paddingRight: "140px",
+  },
+  brand: {
+    color: theme.lighter,
+  },
+}))
 
-const Header = ({ classes, currentUser, client, actions }) => {
-  return (
-    <AppBar position="fixed">
-      <Toolbar>
-        <Link to="/" className={classes.flex}>
-          <Typography type="title" color="accent">
-            Instaqrams
-          </Typography>
-        </Link>
-        <Button color="contrast" component={Link} to="/browse/users">Browse</Button>
-        {
-          currentUser ? (
-            <div className={classes.row}>
-              <Upload />
-              <Button
-                color="contrast"
-                onClick={() => {
-                  client.resetStore()
-                  actions.logoutUser()
-                }}
-              >
-                Logout
-              </Button>
-            </div>
-          ) : (
-            <div className={classes.row}>
-              <Button color="contrast" component={Link} to="/login">Login</Button>
-              <Button color="contrast" component={Link} to="/register">Register</Button>
-            </div>
-          )
-        }
-      </Toolbar>
-    </AppBar>
-  )
+class Header extends React.Component {
+  constructor() {
+    super()
+
+    this.state = { open: false, target: undefined }
+  }
+  logout = () => {
+    this.props.client.resetStore()
+    this.props.actions.logoutUser()
+  }
+  openMenu = (event) => {
+    this.setState({ open: true, target: event.currentTarget })
+  }
+  render() {
+    const { classes, currentUser } = this.props
+    return (
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar classes={{ root: classes.toolbarRoot }}>
+          <Link to="/" className={classes.flex}>
+            <Typography type="title" className={classes.brand}>
+              Instaqram
+            </Typography>
+          </Link>
+          <Button color="contrast" component={Link} to="/browse/users">Browse</Button>
+          {
+            currentUser ? (
+              <div className={classes.row}>
+                <Upload />
+                <IconButton onClick={this.openMenu}>
+                  <Avatar src={currentUser.image.thumb} />
+                </IconButton>
+                <Menu
+                  anchorEl={this.state.target}
+                  open={this.state.open}
+                  onRequestClose={() => this.setState({ open: false })}
+                >
+                  <MenuItem component={Link} to={`/users/${currentUser.username}`}>Profile</MenuItem>
+                  <MenuItem onClick={this.logout}>Logout</MenuItem>
+                </Menu>
+              </div>
+            ) : (
+              <div className={classes.row}>
+                <Button color="contrast" component={Link} to="/login">Login</Button>
+                <Button color="contrast" component={Link} to="/register">Register</Button>
+              </div>
+            )
+          }
+        </Toolbar>
+      </AppBar>
+    )
+  }
 }
 
 Header.defaultProps = {

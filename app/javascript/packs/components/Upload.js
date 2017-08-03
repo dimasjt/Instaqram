@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, TextField, Typography } from "material-ui"
+import { Button, TextField, Typography, IconButton } from "material-ui"
 import Dialog, {
   DialogContent,
   DialogTitle,
@@ -10,6 +10,7 @@ import { graphql } from "react-apollo"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { withStyles, createStyleSheet } from "material-ui/styles"
+import UploadIcon from "material-ui-icons/FileUpload"
 import PropTypes from "prop-types"
 
 import upload from "../utils/upload"
@@ -128,7 +129,9 @@ class Upload extends React.Component {
 
     return (
       <div>
-        <Button color="contrast" onClick={() => this.setState({ open: true })}>Upload</Button>
+        <IconButton color="contrast" onClick={() => this.setState({ open: true })}>
+          <UploadIcon />
+        </IconButton>
         <Dialog open={this.state.open}>
           <DialogTitle>Upload photo</DialogTitle>
           <DialogContent>
