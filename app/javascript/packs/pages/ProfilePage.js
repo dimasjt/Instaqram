@@ -9,17 +9,13 @@ import { connect } from "react-redux"
 
 import UpdateProfile from "../components/UpdateProfile"
 import FollowButton from "../components/FollowButton"
+import ProfilePicture from "../components/ProfilePicture"
 
 import { GET_USER } from "../queries"
 
 const styleSheet = createStyleSheet("ProfilePage", () => ({
   root: {
     width: "80%",
-    margin: "0 auto",
-  },
-  avatar: {
-    width: 200,
-    height: 200,
     margin: "0 auto",
   },
   list: {
@@ -98,11 +94,7 @@ class ProfilePage extends React.Component {
           className={classes.profile}
         >
           <Grid item xs={4}>
-            <Avatar
-              src={user.image.small}
-              alt="Profile"
-              className={classes.avatar}
-            />
+            <ProfilePicture user={user} />
           </Grid>
           <Grid item xs={8}>
             <Grid

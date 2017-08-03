@@ -19,23 +19,10 @@ import * as alertActions from "../actions/alert"
 
 import { POST_PHOTO } from "../mutations"
 
-const styleSheet = createStyleSheet("Upload", () => ({
-  uploadWrapper: {
-    height: "300px",
-    width: "360px",
-    border: "none",
-    marginBottom: "30px",
-  },
-  placeholder: {
-    width: "100%",
-    height: "100%",
-    cursor: "pointer",
-    textAlign: "center",
-  },
-  placeholderText: {
-    lineHeight: "300px",
-    textAlign: "center",
-  },
+const styleSheet = createStyleSheet("Upload", (theme) => ({
+  uploadWrapper: theme.upload.wrapper,
+  placeholder: theme.upload.placeholder,
+  placeholderText: theme.upload.placeholderText,
   image: {
     maxHeight: "100%",
     maxWidth: "100%",

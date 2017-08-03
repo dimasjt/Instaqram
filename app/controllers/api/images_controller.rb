@@ -3,9 +3,10 @@ class Api::ImagesController < Api::BaseController
 
   def create
     @image = current_user.temp_images.new(image_params)
+    @image.imageable = current_user if @image.imageable_type == "User"
 
     if @image.save
-      render json: { id: @image.id }, status: 201
+      render json: @image.decorate_json, status: 201
     else
       render json: image_errors, status: 422
     end

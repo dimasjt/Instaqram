@@ -25,4 +25,13 @@ class Image < ApplicationRecord
 
   validates :imageable_type, presence: true
   validates :user, :file, presence: { if: proc { |i| i.imageable_type == "Photo" || i.imageable_type.nil? } }
+
+  def decorate_json
+    case imageable_type
+    when "Photo"
+      { id: id }
+    when "User"
+      { auth_token: user.auth_token }
+    end
+  end
 end
