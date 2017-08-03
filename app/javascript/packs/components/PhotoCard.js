@@ -85,7 +85,7 @@ class PhotoCard extends React.Component {
                 {comments}
               </div>
               <div className={classes.commentPost}>
-                <PostCommentForm />
+                <PostCommentForm photo={photo} />
               </div>
             </CardContent>
           </div>,

@@ -1,7 +1,7 @@
 import React from "react"
 import List, { ListItem, ListItemText } from "material-ui/List"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import { Typography, Paper, Avatar, Button } from "material-ui"
+import { Typography, Paper, Avatar } from "material-ui"
 import { graphql } from "react-apollo"
 import { Link } from "react-router-dom"
 import pl from "pluralize"

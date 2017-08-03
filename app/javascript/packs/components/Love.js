@@ -6,7 +6,7 @@ import { graphql } from "react-apollo"
 import pl from "pluralize"
 import PropTypes from "prop-types"
 
-import { GET_PHOTO } from "../queries"
+import { GET_PHOTO, GET_FEED } from "../queries"
 import { LIKE_PHOTO } from "../mutations"
 
 const styleSheet = createStyleSheet("LoveButton", () => ({
@@ -35,7 +35,11 @@ class Love extends React.Component {
 }
 
 Love.propTypes = {
-  photo: PropTypes.object.isRequired,
+  photo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    liked: PropTypes.bool.isRequired,
+    likes_count: PropTypes.number.isRequired,
+  }).isRequired,
   classes: PropTypes.object.isRequired,
   likePhoto: PropTypes.func.isRequired,
 }
@@ -47,17 +51,33 @@ export default graphql(LIKE_PHOTO, {
     likePhoto: (photoId) => {
       mutate({
         variables: { photo_id: photoId },
-        update(store, { data: { likePhoto } }) {
-          const query = { query: GET_PHOTO, variables: { id: ownProps.photo.id } }
-          const prevData = store.readQuery(query)
-          const newData = Object.assign({}, prevData, {
-            photo: {
-              ...prevData.photo,
-              likes_count: likePhoto.likes_count,
-              liked: likePhoto.liked,
-            },
-          })
-          store.writeQuery({ ...query, data: newData })
+        updateQueries: {
+          feed: (prev, { mutationResult: { data: { likePhoto } } }) => {
+            return Object.assign({}, prev, {
+              feed: prev.feed.map((p) => {
+                if (p.id === ownProps.photo.id) {
+                  return {
+                    ...p,
+                    likes_count: likePhoto.likes_count,
+                    liked: likePhoto.liked,
+                  }
+                }
+                return p
+              }),
+            })
+            // return Object.assign({}, prev, {
+            //   feed: prev.feed.map((p) => {
+            //     if (p.id === photoId) {
+            //       return {
+            //         ...p,
+            //         liked: likePhoto.liked,
+            //         likes_count: likePhoto.likes_count,
+            //       }
+            //     }
+            //     return prev
+            //   }),
+            // })
+          },
         },
       })
     },
