@@ -7,6 +7,8 @@ import { Link } from "react-router-dom"
 import pl from "pluralize"
 import PropTypes from "prop-types"
 
+import FollowButton from "../components/FollowButton"
+
 import { GET_USERS } from "../queries"
 
 const styleSheet = createStyleSheet("UsersPage", () => ({
@@ -29,8 +31,6 @@ class UsersPage extends React.Component {
 
     const users = data.users.map((user) => {
       const link = <Link to={`/users/${user.username}`}><Typography>{user.username}</Typography></Link>
-      const followText = user.followed ? "Unfollow" : "Follow"
-      const followColor = user.followed ? "accent" : "primary"
       return (
         <ListItem key={user.id} button>
           <Avatar src={user.image.thumb} alt={user.username} />
@@ -38,7 +38,7 @@ class UsersPage extends React.Component {
             primary={link}
             secondary={`${user.photos_count} ${pl("Photo", user.photos_count)}`}
           />
-          <Button raised dense color={followColor}>{followText}</Button>
+          <FollowButton user={user} />
         </ListItem>
       )
     })

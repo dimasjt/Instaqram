@@ -8,9 +8,9 @@ import { graphql } from "react-apollo"
 import { connect } from "react-redux"
 
 import UpdateProfile from "../components/UpdateProfile"
+import FollowButton from "../components/FollowButton"
 
 import { GET_USER } from "../queries"
-import { FOLLOW_USER } from "../mutations"
 
 const styleSheet = createStyleSheet("ProfilePage", () => ({
   root: {
@@ -56,22 +56,13 @@ class ProfilePage extends React.Component {
 
     this.state = { edit: false }
   }
-  follow = () => {
-    this.props.followUser(this.user.id)
-  }
   ownProfile() {
     const { currentUser, match } = this.props
     if (currentUser.username === match.params.username) {
       return <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
     }
-    return (
-      <Button
-        color="primary"
-        onClick={this.follow}
-      >
-        {this.user.followed ? "Unfollow" : "Follow"}
-      </Button>
-    )
+
+    return <FollowButton user={this.user} />
   }
   render() {
     const { classes, data } = this.props
@@ -201,7 +192,6 @@ ProfilePage.propTypes = {
   }).isRequired,
   currentUser: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
-  followUser: PropTypes.func.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(ProfilePage)
@@ -209,27 +199,6 @@ const Connected = connect(
   (state) => state,
 )(WithStyle)
 
-const WithData = graphql(GET_USER, {
+export default graphql(GET_USER, {
   options: ({ match }) => ({ variables: { username: match.params.username } }),
 })(Connected)
-
-export default graphql(FOLLOW_USER, {
-  props: ({ ownProps, mutate }) => ({
-    followUser: (userId) => {
-      mutate({
-        variables: { user_id: userId },
-        update: (store, { data: { follow } }) => {
-          const query = { query: GET_USER, variables: { username: ownProps.match.params.username } }
-          const prevData = store.readQuery(query)
-          const newData = Object.assign({}, prevData, {
-            user: {
-              ...prevData.user,
-              followed: !!follow,
-            },
-          })
-          store.writeQuery({ ...query, data: newData })
-        },
-      })
-    },
-  }),
-})(WithData)
