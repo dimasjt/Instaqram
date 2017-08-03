@@ -34,6 +34,7 @@ const Header = ({ classes, currentUser, client, actions }) => {
             Instaqrams
           </Typography>
         </Link>
+        <Button color="contrast" component={Link} to="/browse/users">Browse</Button>
         {
           currentUser ? (
             <div className={classes.row}>

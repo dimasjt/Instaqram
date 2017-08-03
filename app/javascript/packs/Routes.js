@@ -12,6 +12,7 @@ import RegisterPage from "./pages/RegisterPage"
 import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
 import PhotoPage from "./pages/PhotoPage"
+import UsersPage from "./pages/UsersPage"
 
 import * as userActions from "./actions/user"
 
@@ -43,6 +44,7 @@ class Routes extends React.Component {
               <Route exact path="/login" component={LoginPage} />
               <Route path="/users/:username" component={ProfilePage} />
               <Route path="/photos/:id" component={PhotoPage} />
+              <Route path="/browse/users" component={UsersPage} />
             </Switch>
           </div>
 

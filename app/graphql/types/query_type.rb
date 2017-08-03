@@ -33,4 +33,15 @@ Types::QueryType = GraphQL::ObjectType.define do
       end
     }
   end
+
+  field :users do
+    type types[Types::UserType]
+    resolve ->(obj, args, ctx) {
+      if user =  ctx[:current_user]
+        User.where.not(id: user.id).order(created_at: :desc)
+      else
+        User.order(created_at: :desc)
+      end
+    }
+  end
 end
