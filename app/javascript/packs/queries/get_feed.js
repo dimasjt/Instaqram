@@ -14,6 +14,14 @@ export default gql`
       created_at {
         human
       }
+      comments {
+        id
+        content
+        user {
+          id
+          username
+        }
+      }
       user {
         id
         username
