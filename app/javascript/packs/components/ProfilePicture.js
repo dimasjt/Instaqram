@@ -1,5 +1,5 @@
 import React from "react"
-import { Avatar, Button, Typography } from "material-ui"
+import { Avatar, Button, Typography, Paper } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import Dialog, {
   DialogTitle,
@@ -101,6 +101,7 @@ class ProfilePicture extends React.Component {
           alt="Profile"
           className={classes.avatar}
           onClick={this.openDialog}
+          component={Paper}
         />
 
         <Dialog open={this.state.open}>
