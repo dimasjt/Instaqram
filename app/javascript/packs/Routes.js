@@ -6,6 +6,7 @@ import PropTypes from "prop-types"
 
 import Header from "./components/Header"
 import Alert from "./components/Alert"
+import PrivateRoute from "./components/PrivateRoute"
 
 import HomePage from "./pages/HomePage"
 import RegisterPage from "./pages/RegisterPage"
@@ -39,7 +40,7 @@ class Routes extends React.Component {
 
           <div style={styles.container}>
             <Switch>
-              <Route exact path="/" component={HomePage} />
+              <PrivateRoute exact path="/" component={HomePage} />
               <Route exact path="/register" component={RegisterPage} />
               <Route exact path="/login" component={LoginPage} />
               <Route path="/users/:username" component={ProfilePage} />
