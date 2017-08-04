@@ -3,7 +3,6 @@ import { TextField } from "material-ui"
 import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
 
-import { GET_PHOTO } from "../../queries"
 import { COMMENT_PHOTO } from "../../mutations"
 
 class PostCommentForm extends React.Component {
@@ -51,11 +50,25 @@ export default graphql(COMMENT_PHOTO, {
     submit(photoId, content) {
       mutate({
         variables: { photo_id: photoId, content },
-        update(store, { data: { commentPhoto } }) {
-          const query = { query: GET_PHOTO, variables: { id: ownProps.photo.id } }
-          const prevData = store.readQuery(query)
-          prevData.photo.comments.push(commentPhoto)
-          store.writeQuery({ ...query, data: prevData })
+        updateQueries: {
+          feed: (prev, { mutationResult: { data: commentPhoto } }) => {
+            return Object.assign({}, prev, {
+              ...prev,
+              feed: prev.feed.map((p) => {
+                if (p.id === ownProps.photo.id) {
+                  return {
+                    ...p,
+                    comments: [
+                      ...p.comments,
+                      commentPhoto.commentPhoto,
+                    ],
+                  }
+                }
+
+                return p
+              }),
+            })
+          },
         },
       })
     },
