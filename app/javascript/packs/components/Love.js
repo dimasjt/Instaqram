@@ -22,7 +22,7 @@ const Love = ({ classes, photo, currentUser, likePhoto, history }) => (
     <IconButton
       onClick={() => {
         if (currentUser) {
-          likePhoto(this.props.photo.id)
+          likePhoto(photo.id)
         } else {
           history.push("/login")
         }
