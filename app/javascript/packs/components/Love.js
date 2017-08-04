@@ -4,6 +4,7 @@ import { IconButton, Typography } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import { graphql } from "react-apollo"
 import pl from "pluralize"
+import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
 import { LIKE_PHOTO } from "../mutations"
@@ -16,21 +17,26 @@ const styleSheet = createStyleSheet("LoveButton", () => ({
   },
 }))
 
-class Love extends React.Component {
-  onClick = () => {
-    this.props.likePhoto(this.props.photo.id)
-  }
-  render() {
-    const { classes, photo } = this.props
-    return (
-      <div className={classes.container}>
-        <IconButton onClick={this.onClick}>
-          { photo.liked ? <Favorite /> : <FavoriteBorder /> }
-        </IconButton>
-        <Typography type="subheading">{ photo.likes_count } {pl("like", photo.likes_count)}</Typography>
-      </div>
-    )
-  }
+const Love = ({ classes, photo, currentUser, likePhoto, history }) => (
+  <div className={classes.container}>
+    <IconButton
+      onClick={() => {
+        if (currentUser) {
+          likePhoto(this.props.photo.id)
+        } else {
+          history.push("/login")
+        }
+      }}
+    >
+      { photo.liked ? <Favorite /> : <FavoriteBorder /> }
+    </IconButton>
+    <Typography type="subheading">{ photo.likes_count } {pl("like", photo.likes_count)}</Typography>
+  </div>
+)
+
+Love.defaultProps = {
+  history: null,
+  currentUser: null,
 }
 
 Love.propTypes = {
@@ -41,9 +47,14 @@ Love.propTypes = {
   }).isRequired,
   classes: PropTypes.object.isRequired,
   likePhoto: PropTypes.func.isRequired,
+  history: PropTypes.object,
+  currentUser: PropTypes.object,
 }
 
 const WithStyle = withStyles(styleSheet)(Love)
+const Connected = connect(
+  (state) => state,
+)(WithStyle)
 
 export default graphql(LIKE_PHOTO, {
   props: ({ ownProps, mutate }) => ({
@@ -69,4 +80,4 @@ export default graphql(LIKE_PHOTO, {
       })
     },
   }),
-})(WithStyle)
+})(Connected)

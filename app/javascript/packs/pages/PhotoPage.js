@@ -63,7 +63,7 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
 
 class PhotoPage extends React.Component {
   render() {
-    const { classes, data } = this.props
+    const { classes, data, history } = this.props
     const photo = data.photo || {}
     const user = photo.user || {}
 
@@ -111,7 +111,7 @@ class PhotoPage extends React.Component {
                 </div>
               </div>
               <div>
-                <Love photo={photo} />
+                <Love photo={photo} history={history} />
               </div>
               <div className={classes.postComment}>
                 <PostCommentForm photo={photo} />
@@ -131,6 +131,7 @@ PhotoPage.propTypes = {
       user: PropTypes.object,
     }),
   }).isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(PhotoPage)
