@@ -24,6 +24,12 @@ Types::PhotoType = GraphQL::ObjectType.define do
     }
   end
 
-  field :comments, type: types[Types::CommentType]
+  field :comments, types[Types::CommentType] do
+    argument :size, types.Int, default_value: 6
+    resolve ->(obj, args, ctx) {
+      limit = args[:size] > 20 ? 20 : 6
+      obj.comments.limit(limit)
+    }
+  end
   field :user, type: Types::UserType
 end
