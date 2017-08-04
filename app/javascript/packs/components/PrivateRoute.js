@@ -26,7 +26,7 @@ PrivateRoute.defaultProps = {
 
 PrivateRoute.propTypes = {
   currentUser: PropTypes.object,
-  component: PropTypes.element.isRequired,
+  component: PropTypes.any.isRequired,
 }
 
 export default connect(
