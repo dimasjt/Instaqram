@@ -1,6 +1,6 @@
 import React from "react"
 import { withStyles, createStyleSheet } from "material-ui/styles"
-import { Avatar, Typography, Grid, Button, Paper } from "material-ui"
+import { Typography, Grid, Button, Paper } from "material-ui"
 import PropTypes from "prop-types"
 import SyncIcon from "material-ui-icons/Sync"
 import { Link } from "react-router-dom"
@@ -53,12 +53,12 @@ class ProfilePage extends React.Component {
     this.state = { edit: false }
   }
   ownProfile() {
-    const { currentUser, match } = this.props
-    if (currentUser.username === match.params.username) {
+    const { currentUser, match, history } = this.props
+    if (currentUser && currentUser.username === match.params.username) {
       return <Button color="primary" onClick={() => this.setState({ edit: true })}>Edit Profile</Button>
     }
 
-    return <FollowButton user={this.user} />
+    return <FollowButton user={this.user} history={history} />
   }
   render() {
     const { classes, data } = this.props
@@ -174,6 +174,10 @@ ProfilePage.defaultProps = {
   },
 }
 
+ProfilePage.defaultProps = {
+  currentUser: null,
+}
+
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.shape({
@@ -182,8 +186,9 @@ ProfilePage.propTypes = {
       photos: PropTypes.array,
     }),
   }).isRequired,
-  currentUser: PropTypes.object.isRequired,
+  currentUser: PropTypes.object,
   match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(ProfilePage)

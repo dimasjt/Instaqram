@@ -126,13 +126,17 @@ class ProfilePicture extends React.Component {
   }
 }
 
+ProfilePicture.defaultProps = {
+  currentUser: null,
+}
+
 ProfilePicture.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
     image: PropTypes.object.isRequired,
   }).isRequired,
   classes: PropTypes.object.isRequired,
-  currentUser: PropTypes.object.isRequired,
+  currentUser: PropTypes.object,
   actions: PropTypes.object.isRequired,
 }
 

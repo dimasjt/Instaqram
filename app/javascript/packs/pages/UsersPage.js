@@ -23,7 +23,7 @@ const styleSheet = createStyleSheet("UsersPage", () => ({
 
 class UsersPage extends React.Component {
   render() {
-    const { classes, data } = this.props
+    const { classes, data, history } = this.props
 
     if (data.loading) {
       return null
@@ -38,7 +38,7 @@ class UsersPage extends React.Component {
             primary={link}
             secondary={`${user.photos_count} ${pl("Photo", user.photos_count)}`}
           />
-          <FollowButton user={user} />
+          <FollowButton user={user} history={history} />
         </ListItem>
       )
     })
@@ -57,6 +57,7 @@ class UsersPage extends React.Component {
 UsersPage.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(UsersPage)
