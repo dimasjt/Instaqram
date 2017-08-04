@@ -43,11 +43,15 @@ class Header extends React.Component {
     this.state = { open: false, target: undefined }
   }
   logout = () => {
+    this.close()
     this.props.client.resetStore()
     this.props.actions.logoutUser()
   }
   openMenu = (event) => {
     this.setState({ open: true, target: event.currentTarget })
+  }
+  close = () => {
+    this.setState({ open: false })
   }
   render() {
     const { classes, currentUser } = this.props
@@ -70,10 +74,14 @@ class Header extends React.Component {
                 <Menu
                   anchorEl={this.state.target}
                   open={this.state.open}
-                  onRequestClose={() => this.setState({ open: false })}
+                  onRequestClose={this.close}
                 >
-                  <MenuItem component={Link} to={`/users/${currentUser.username}`}>Profile</MenuItem>
-                  <MenuItem onClick={this.logout}>Logout</MenuItem>
+                  <MenuItem component={Link} to={`/users/${currentUser.username}`} onClick={this.close}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={this.logout}>
+                    Logout
+                  </MenuItem>
                 </Menu>
               </div>
             ) : (
