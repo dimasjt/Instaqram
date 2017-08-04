@@ -2,6 +2,7 @@ import React from "react"
 import { TextField } from "material-ui"
 import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
 import { COMMENT_PHOTO } from "../../mutations"
 
@@ -26,6 +27,9 @@ class PostCommentForm extends React.Component {
     }
   }
   render() {
+    if (!this.props.currentUser) {
+      return null
+    }
     return (
       <form>
         <TextField
@@ -40,10 +44,19 @@ class PostCommentForm extends React.Component {
   }
 }
 
+PostCommentForm.defaultProps = {
+  currentUser: null,
+}
+
 PostCommentForm.propTypes = {
   photo: PropTypes.object.isRequired,
   submit: PropTypes.func.isRequired,
+  currentUser: PropTypes.object,
 }
+
+const Connected = connect(
+  (state) => state,
+)(PostCommentForm)
 
 export default graphql(COMMENT_PHOTO, {
   props: ({ ownProps, mutate }) => ({
@@ -73,4 +86,4 @@ export default graphql(COMMENT_PHOTO, {
       })
     },
   }),
-})(PostCommentForm)
+})(Connected)
