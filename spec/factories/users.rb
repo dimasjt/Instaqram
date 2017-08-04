@@ -21,6 +21,8 @@
 #  birthdate              :string
 #  caption                :string
 #  website                :string
+#  followings_count       :integer          default(0)
+#  followers_count        :integer          default(0)
 #
 # Indexes
 #

@@ -16,8 +16,10 @@
 #
 
 class Followship < ApplicationRecord
-  belongs_to :follower, class_name: "User"
-  belongs_to :following, class_name: "User"
+  with_options class_name: "User" do |u|
+    u.belongs_to :follower, counter_cache: :followings_count
+    u.belongs_to :following, counter_cache: :followers_count
+  end
 
   validates :follower, uniqueness: { scope: :following, message: "already follow user" }
 end

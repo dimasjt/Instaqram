@@ -123,12 +123,12 @@ class ProfilePage extends React.Component {
                   </Grid>
                   <Grid item xs={3}>
                     <Typography component="h4" type="subheading">
-                      <a>Folowers 100</a>
+                      <a>Folowers {user.followers_count}</a>
                     </Typography>
                   </Grid>
                   <Grid item xs={3}>
                     <Typography component="h4" type="subheading">
-                      <a>Followings 100</a>
+                      <a>Followings {user.followings_count}</a>
                     </Typography>
                   </Grid>
                 </Grid>

@@ -21,6 +21,8 @@
 #  birthdate              :string
 #  caption                :string
 #  website                :string
+#  followings_count       :integer          default(0)
+#  followers_count        :integer          default(0)
 #
 # Indexes
 #
@@ -39,9 +41,14 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :temp_images, dependent: :destroy, class_name: "Image"
 
-  with_options join_table: "followships", class_name: "User" do |f|
-    f.has_and_belongs_to_many :followers, foreign_key: "following_id", association_foreign_key: "follower_id"
-    f.has_and_belongs_to_many :followings, foreign_key: "follower_id", association_foreign_key: "following_id"
+  with_options class_name: "Followship" do |f|
+    f.has_many :followers_references, foreign_key: "following_id"
+    f.has_many :followings_references, foreign_key: "follower_id"
+  end
+
+  with_options class_name: "User" do |f|
+    f.has_many :followers, through: :followers_references
+    f.has_many :followings, through: :followings_references
   end
 
   has_one :image, as: :imageable

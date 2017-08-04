@@ -9,6 +9,8 @@ export default gql`
       caption
       photos_count
       followed
+      followings_count
+      followers_count
       image {
         small
       }

@@ -5,6 +5,8 @@ Types::UserType = GraphQL::ObjectType.define do
   field :email, types.String
   field :username, types.String
   field :photos_count, types.Int
+  field :followings_count, types.Int
+  field :followers_count, types.Int
   field :image, Types::ImageType do
     resolve ->(obj, args, ctx) {
       obj.avatar.file
