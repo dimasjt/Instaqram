@@ -24,7 +24,6 @@ const styleSheet = createStyleSheet("ProfilePage", () => ({
   item: {
     width: "300px",
     height: "300px",
-    marginBottom: "20px",
   },
   itemPaper: {
     height: "100%",
@@ -86,12 +85,18 @@ class ProfilePage extends React.Component {
     const photos = user.photos || []
 
     const list = photos.map((photo) => {
+      const style = {
+        backgroundImage: `url(${photo.image.medium})`,
+        backgroundSize: "cover",
+      }
       return (
         <Grid className={classes.item} item xs={4} key={photo.id}>
           <Link to={`/photos/${photo.id}`}>
-            <Paper className={classes.itemPaper} elevation={4}>
-              <img src={photo.image.medium} alt={photo.caption} className={classes.itemImage} />
-            </Paper>
+            <Paper
+              className={classes.itemPaper}
+              elevation={1}
+              style={style}
+            />
           </Link>
         </Grid>
       )
@@ -170,7 +175,7 @@ class ProfilePage extends React.Component {
           align="center"
           direction="row"
           justify="flex-start"
-          gutter={24}
+          gutter={16}
           className={classes.list}
         >
           {list}

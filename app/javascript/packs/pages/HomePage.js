@@ -88,6 +88,9 @@ export default graphql(GET_FEED, {
         return props.data.fetchMore({
           variables: { page },
           updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult.feed.length) {
+              return prev
+            }
             return Object.assign({}, prev, {
               feed: [
                 ...prev.feed,
