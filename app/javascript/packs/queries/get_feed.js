@@ -1,8 +1,8 @@
 import { gql } from "react-apollo"
 
 export default gql`
-  query feed {
-    feed {
+  query feed($page: Int) {
+    feed(page: $page) {
       id
       caption
       comments_count
