@@ -27,7 +27,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :page, types.Int, default_value: 1
     resolve ->(obj, args, ctx) {
       if current_user = ctx[:current_user]
-        current_user.feed.page(args[:page]).per(2)
+        current_user.feed.page(args[:page]).per(10)
       else
         Photo.none
       end
