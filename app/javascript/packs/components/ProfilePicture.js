@@ -104,7 +104,7 @@ class ProfilePicture extends React.Component {
           component={Paper}
         />
 
-        <Dialog open={this.state.open}>
+        <Dialog open={this.state.open} onRequestClose={this.hideDialog}>
           <DialogTitle>Update Profile Picture</DialogTitle>
           <DialogContent>
             <Dropzone

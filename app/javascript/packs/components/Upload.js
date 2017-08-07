@@ -35,6 +35,8 @@ const initialState = {
   caption: null,
   base64Image: null,
   image_id: null,
+  valid: false,
+  loading: false,
 }
 
 class Upload extends React.Component {
@@ -58,7 +60,6 @@ class Upload extends React.Component {
       image_id: this.state.image_id,
     }
     this.props.mutate({ variables }).then(({ data }) => {
-      // TODO add action view photo to alert
       this.props.actions.showAlert("Your photo uploaded.", {
         name: "View",
         to: `/photos/${data.postPhoto.id}`,
@@ -70,7 +71,7 @@ class Upload extends React.Component {
     })
   }
   openImageFile = async (files) => {
-    this.setState({ image: files })
+    this.setState({ image: files, loading: true })
 
     const reader = new FileReader()
     reader.onload = (event) => {
@@ -81,8 +82,9 @@ class Upload extends React.Component {
     try {
       const result = await upload({ file: files[0], type: "Photo" })
       const json = await result.json()
-      this.setState({ image_id: json.id })
+      this.setState({ image_id: json.id, loading: false, valid: true })
     } catch (err) {
+      this.setState({ loading: false })
       this.props.actions.showAlert(err.message)
     }
   }
@@ -113,13 +115,14 @@ class Upload extends React.Component {
   }
   render() {
     const { classes } = this.props
+    const { loading, valid } = this.state
 
     return (
       <div>
         <IconButton color="contrast" onClick={() => this.setState({ open: true })}>
           <UploadIcon />
         </IconButton>
-        <Dialog open={this.state.open}>
+        <Dialog open={this.state.open} onRequestClose={this.hideDialog}>
           <DialogTitle>Upload photo</DialogTitle>
           <DialogContent>
             <Dropzone
@@ -139,7 +142,7 @@ class Upload extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={this.postPhoto}>Post</Button>
+            <Button color="primary" onClick={this.postPhoto} disabled={loading || !valid}>Post</Button>
             <Button onClick={this.hideDialog} color="primary">Cancel</Button>
           </DialogActions>
         </Dialog>
