@@ -1,7 +1,7 @@
 import { gql } from "react-apollo"
 
 export default gql`
-  query user($username: String!){
+  query user($username: String!, $page: Int){
     user(username: $username){
       id
       username
@@ -14,7 +14,7 @@ export default gql`
       image {
         small
       }
-      photos {
+      photos(page: $page) {
         id
         caption
         image {

@@ -50,7 +50,7 @@ class ProfilePage extends React.Component {
   constructor() {
     super()
 
-    this.state = { edit: false }
+    this.state = { edit: false, page: 2 }
   }
   ownProfile() {
     const { currentUser, match, history } = this.props
@@ -59,6 +59,26 @@ class ProfilePage extends React.Component {
     }
 
     return <FollowButton user={this.user} history={history} />
+  }
+  loadMore = () => {
+    this.props.loadMore(this.state.page).then(() => {
+      this.setState({ page: this.state.page + 1 })
+    })
+  }
+  loadMoreShow() {
+    const { loading, user } = this.props.data
+    if (!loading && (user.photos.length < user.photos_count)) {
+      return (
+        <Grid container gutter={24} align="center" justify="center" direction="row">
+          <Grid item xs={3} className={this.props.classes.center}>
+            <Button fab color="primary" onClick={this.loadMore}>
+              <SyncIcon />
+            </Button>
+          </Grid>
+        </Grid>
+      )
+    }
+    return null
   }
   render() {
     const { classes, data } = this.props
@@ -77,7 +97,7 @@ class ProfilePage extends React.Component {
       )
     })
 
-    if (data.loading) {
+    if (data.loading && !user.id) {
       return null
     }
 
@@ -155,11 +175,7 @@ class ProfilePage extends React.Component {
         >
           {list}
         </Grid>
-        <Grid container gutter={24} align="center" justify="center" direction="row">
-          <Grid item xs={3} className={classes.center}>
-            <Button fab color="primary"><SyncIcon /></Button>
-          </Grid>
-        </Grid>
+        {this.loadMoreShow()}
       </div>
     )
   }
@@ -185,10 +201,12 @@ ProfilePage.propTypes = {
       image: PropTypes.object,
       photos: PropTypes.array,
     }),
+    loading: PropTypes.bool,
   }).isRequired,
   currentUser: PropTypes.object,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  loadMore: PropTypes.func.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(ProfilePage)
@@ -198,4 +216,25 @@ const Connected = connect(
 
 export default graphql(GET_USER, {
   options: ({ match }) => ({ variables: { username: match.params.username } }),
+  props(props) {
+    return {
+      ...props,
+      loadMore(page) {
+        return props.data.fetchMore({
+          variables: { page },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            return Object.assign({}, prev, {
+              user: {
+                ...fetchMoreResult.user,
+                photos: [
+                  ...prev.user.photos,
+                  ...fetchMoreResult.user.photos,
+                ],
+              },
+            })
+          },
+        })
+      },
+    }
+  },
 })(Connected)

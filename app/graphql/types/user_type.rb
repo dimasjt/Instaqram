@@ -28,10 +28,10 @@ Types::UserType = GraphQL::ObjectType.define do
 
   field :photos do
     type types[Types::PhotoType]
-    argument :size, types.Int, default_value: 12
+    argument :page, types.Int, default_value: 1
 
     resolve ->(obj, args, ctx) {
-      obj.photos.limit(args[:size])
+      obj.photos.page(args[:page])
     }
   end
 end

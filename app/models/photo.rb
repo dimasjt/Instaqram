@@ -16,6 +16,9 @@
 #
 
 class Photo < ApplicationRecord
+  paginates_per 12
+  max_paginates_per 24
+
   belongs_to :user, counter_cache: true
 
   has_many :comments, dependent: :destroy
