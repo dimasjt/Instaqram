@@ -8,6 +8,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :postPhoto, function: Functions::PostPhoto.new
   field :commentPhoto, function: Functions::CommentPhoto.new
   field :likePhoto, function: Functions::LikePhoto.new
+  field :deletePhoto, function: Functions::DeletePhoto.new
 
   field :follow, function: Functions::Followship.new
 end

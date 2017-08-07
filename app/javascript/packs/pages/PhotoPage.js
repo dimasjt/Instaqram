@@ -8,6 +8,7 @@ import PropTypes from "prop-types"
 import Comment from "../components/Comment"
 import Love from "../components/Love"
 import PostCommentForm from "../components/forms/PostCommentForm"
+import PhotoOpts from "../components/PhotoOpts"
 
 import { linkFor } from "../utils/helpers"
 
@@ -36,7 +37,7 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
   profile: {
     display: "flex",
     justifyContent: "flex-start",
-    padding: "10px",
+    padding: "10px 0 10px 10px",
     borderBottom: "1px solid #ccc",
     alignItems: "center",
     marginRight: "16px",
@@ -58,6 +59,12 @@ const styleSheet = createStyleSheet("PhotoPage", () => ({
   },
   postComment: {
     paddingRight: "16px",
+  },
+  headOther: {
+    flex: 1,
+  },
+  headMid: {
+    flex: 10,
   },
 }))
 
@@ -94,13 +101,20 @@ class PhotoPage extends React.Component {
                     alt={user.username}
                   />,
                   `/users/${user.username}`,
+                  { className: classes.headOther },
                 )}
                 {linkFor(
                   <Typography component="h3" className={classes.username} type="headline">
                     {user.username}
                   </Typography>,
                   `/users/${user.username}`,
+                  { className: classes.headMid },
                 )}
+                <PhotoOpts
+                  classes={classes.headOther}
+                  photo={photo}
+                  history={history}
+                />
               </div>
               <div className={classes.details}>
                 <Typography component="p" className={classes.caption}>
