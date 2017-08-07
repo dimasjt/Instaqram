@@ -43,6 +43,9 @@ const styleSheet = createStyleSheet("ProfilePage", () => ({
   center: {
     textAlign: "center",
   },
+  loadMore: {
+    margin: "25px 0 25px 0",
+  },
 }))
 
 class ProfilePage extends React.Component {
@@ -68,7 +71,14 @@ class ProfilePage extends React.Component {
     const { loading, user } = this.props.data
     if (!loading && (user.photos.length < user.photos_count)) {
       return (
-        <Grid container gutter={24} align="center" justify="center" direction="row">
+        <Grid
+          container
+          gutter={24}
+          align="center"
+          justify="center"
+          direction="row"
+          className={this.props.classes.loadMore}
+        >
           <Grid item xs={3} className={this.props.classes.center}>
             <Button fab color="primary" onClick={this.loadMore}>
               <SyncIcon />
