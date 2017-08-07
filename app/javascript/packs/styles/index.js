@@ -1,9 +1,15 @@
-import green from "material-ui/colors/lightGreen"
+import blue from "material-ui/colors/blue"
+import blueGrey from "material-ui/colors/blueGrey"
+import createPalette from "material-ui/styles/palette"
 
 export default {
-  lighter: green[50],
-  light: green[500],
-  dark: green[900],
+  palette: createPalette({
+    primary: blue,
+    accent: blueGrey,
+  }),
+  lighter: blue[50],
+  light: blue[500],
+  dark: blue[900],
   upload: {
     wrapper: {
       height: "300px",

@@ -34,6 +34,9 @@ const styleSheet = createStyleSheet("ButtonAppBar", (theme) => ({
   brand: {
     color: theme.lighter,
   },
+  white: {
+    color: "#fff",
+  },
 }))
 
 class Header extends React.Component {
@@ -63,7 +66,7 @@ class Header extends React.Component {
               Instaqram
             </Typography>
           </Link>
-          <Button color="contrast" component={Link} to="/browse/users">Browse</Button>
+          <Button className={classes.white} component={Link} to="/browse/users">Browse</Button>
           {
             currentUser ? (
               <div className={classes.row}>
@@ -86,8 +89,8 @@ class Header extends React.Component {
               </div>
             ) : (
               <div className={classes.row}>
-                <Button color="contrast" component={Link} to="/login">Login</Button>
-                <Button color="contrast" component={Link} to="/register">Register</Button>
+                <Button className={classes.white} component={Link} to="/login">Login</Button>
+                <Button className={classes.white} component={Link} to="/register">Register</Button>
               </div>
             )
           }
