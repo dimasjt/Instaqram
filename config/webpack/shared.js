@@ -25,13 +25,6 @@ module.exports = {
   //   }, {}
   // ),
 
-  entry: {
-    application: [
-      "react-hot-loader/patch",
-      "./app/javascript/packs/application.js",
-    ],
-  },
-
   output: {
     filename: "[name].js",
     path: output.path,

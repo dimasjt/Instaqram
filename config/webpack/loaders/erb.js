@@ -1,9 +1,9 @@
 module.exports = {
   test: /\.erb$/,
-  enforce: 'pre',
+  enforce: "pre",
   exclude: /node_modules/,
-  loader: 'rails-erb-loader',
+  loader: "rails-erb-loader",
   options: {
-    runner: 'bin/rails runner'
-  }
+    runner: "bin/rails runner",
+  },
 }

@@ -5,6 +5,12 @@ const sharedConfig = require("./shared.js")
 const { settings, output } = require("./configuration.js")
 
 module.exports = merge(sharedConfig, {
+  entry: {
+    application: [
+      "react-hot-loader/patch",
+      "./app/javascript/packs/application.dev.js",
+    ],
+  },
   devtool: "cheap-eval-source-map",
 
   stats: {
@@ -12,6 +18,7 @@ module.exports = merge(sharedConfig, {
   },
 
   output: {
+    filename: "application.js",
     pathinfo: true,
   },
 
