@@ -59,6 +59,7 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "carrierwave"
 gem "devise"
+gem "fog"
 gem "graphql"
 gem "jwt"
 gem "kaminari"
