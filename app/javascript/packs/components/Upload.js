@@ -59,7 +59,7 @@ class Upload extends React.Component {
       photo: { caption: this.state.caption },
       image_id: this.state.image_id,
     }
-    this.props.mutate({ variables }).then(({ data }) => {
+    this.props.upload(variables).then(({ data }) => {
       this.props.actions.showAlert("Your photo uploaded.", {
         name: "View",
         to: `/photos/${data.postPhoto.id}`,
@@ -152,7 +152,7 @@ class Upload extends React.Component {
 }
 
 Upload.propTypes = {
-  mutate: PropTypes.func.isRequired,
+  upload: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 }
@@ -164,4 +164,15 @@ const Connected = connect(
   (dispatch) => ({ actions: bindActionCreators(alertActions, dispatch) }),
 )(WithStyle)
 
-export default graphql(POST_PHOTO)(Connected)
+export default graphql(POST_PHOTO, {
+  props: ({ mutate }) => ({
+    upload: (variables) => {
+      return mutate({
+        variables,
+        refetchQueries: [
+          "feed",
+        ],
+      })
+    },
+  }),
+})(Connected)

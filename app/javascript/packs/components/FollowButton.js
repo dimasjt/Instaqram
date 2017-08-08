@@ -49,6 +49,9 @@ export default graphql(FOLLOW_USER, {
     follow(userId) {
       mutate({
         variables: { user_id: userId },
+        refetchQueries: [
+          "feed",
+        ],
         updateQueries: {
           users: (prev, { mutationResult: { data } }) => {
             return Object.assign({}, prev, {
