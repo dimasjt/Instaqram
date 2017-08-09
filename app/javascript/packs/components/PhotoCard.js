@@ -32,6 +32,10 @@ const styleSheet = createStyleSheet("PhotoCard", () => ({
     paddingTop: "10px",
     borderTop: "1px solid #cccccc",
   },
+  mediaWrapper: {
+    borderTop: "1px solid #efefef",
+    borderBottom: "1px solid #efefef",
+  },
 }))
 
 class PhotoCard extends React.Component {
@@ -66,7 +70,7 @@ class PhotoCard extends React.Component {
           />,
           !onlyMedia,
         )}
-        <CardMedia>
+        <CardMedia className={classes.mediaWrapper}>
           <img
             src={photo.image.medium}
             alt={photo.caption}
