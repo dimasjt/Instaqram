@@ -4,6 +4,7 @@ import { Typography, Avatar } from "material-ui"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
+import TimeAgo from "react-timeago"
 
 import Comment from "./Comment"
 import PostCommentForm from "./forms/PostCommentForm"
@@ -45,6 +46,7 @@ class PhotoCard extends React.Component {
 
     const avatar = <Avatar src={user.image.thumb} alt={user.username} />
     const username = <Link to={`/users/${user.username}`}>{user.username}</Link>
+    const createdAt = <TimeAgo date={photo.created_at.unix} />
     const comments = photo.comments.map((comment) => {
       return (
         <Comment
@@ -60,7 +62,7 @@ class PhotoCard extends React.Component {
           <CardHeader
             avatar={avatar}
             title={username}
-            subheader={photo.created_at.human}
+            subheader={createdAt}
           />,
           !onlyMedia,
         )}

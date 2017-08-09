@@ -13,6 +13,7 @@ export default gql`
       }
       created_at {
         human
+        unix
       }
       comments {
         id

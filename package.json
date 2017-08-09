@@ -43,6 +43,7 @@
     "react-router-dom": "^4.1.2",
     "react-router-redux": "next",
     "react-tap-event-plugin": "^2.0.1",
+    "react-timeago": "^3.4.3",
     "redux": "^3.7.2",
     "redux-form": "^7.0.1",
     "redux-form-material-ui": "^4.2.0",

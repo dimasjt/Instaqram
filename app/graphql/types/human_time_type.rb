@@ -15,7 +15,7 @@ Types::HumanTimeType = GraphQL::ObjectType.define do
 
   field :unix, types.Int do
     resolve ->(time, args, ctx) {
-      time.utc.to_i
+      time.utc.to_i * 1000
     }
   end
 end
