@@ -7,6 +7,7 @@ import { connect } from "react-redux"
 import { withApollo } from "react-apollo"
 import { bindActionCreators } from "redux"
 import PropTypes from "prop-types"
+import PhotoCameraIcon from "material-ui-icons/PhotoCamera"
 
 import Upload from "./Upload"
 
@@ -33,6 +34,7 @@ const styleSheet = createStyleSheet("ButtonAppBar", (theme) => ({
   },
   brand: {
     color: theme.lighter,
+    display: "flex",
   },
   white: {
     color: "#fff",
@@ -63,7 +65,10 @@ class Header extends React.Component {
         <Toolbar classes={{ root: classes.toolbarRoot }}>
           <Link to="/" className={classes.flex}>
             <Typography type="title" className={classes.brand}>
-              Instaqram
+              <PhotoCameraIcon />
+              <span>
+                Instaqram
+              </span>
             </Typography>
           </Link>
           <Button className={classes.white} component={Link} to="/browse/users">Browse</Button>
