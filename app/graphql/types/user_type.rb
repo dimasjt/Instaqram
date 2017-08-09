@@ -31,7 +31,7 @@ Types::UserType = GraphQL::ObjectType.define do
     argument :page, types.Int, default_value: 1
 
     resolve ->(obj, args, ctx) {
-      obj.photos.page(args[:page])
+      obj.photos.order(created_at: :desc).page(args[:page])
     }
   end
 end
