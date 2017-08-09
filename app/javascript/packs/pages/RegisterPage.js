@@ -1,5 +1,6 @@
 import React from "react"
 import Card, { CardContent } from "material-ui/Card"
+import { Typography } from "material-ui"
 import { graphql, withApollo } from "react-apollo"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
@@ -35,6 +36,7 @@ class RegisterPage extends React.Component {
       <div style={styles.container}>
         <Card>
           <CardContent>
+            <Typography type="headline">Register</Typography>
             <RegisterForm onSubmit={this.handleRegister} />
           </CardContent>
         </Card>

@@ -4,6 +4,13 @@ import { Link } from "react-router-dom"
 import { Field, reduxForm, propTypes } from "redux-form"
 import { TextField } from "@gfpacheco/redux-form-material-ui"
 
+import {
+  required,
+  email,
+  username,
+  min,
+} from "./validations"
+
 const RegisterForm = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -14,6 +21,7 @@ const RegisterForm = ({ handleSubmit }) => {
         label="Username"
         margin="normal"
         type="text"
+        validate={[required, min(3), username]}
       />
       <Field
         name="name"
@@ -21,6 +29,7 @@ const RegisterForm = ({ handleSubmit }) => {
         label="Name"
         fullWidth
         margin="normal"
+        validate={[required, min(5)]}
       />
       <Field
         name="email"
@@ -28,6 +37,7 @@ const RegisterForm = ({ handleSubmit }) => {
         label="Email"
         fullWidth
         margin="normal"
+        validate={[required, email]}
       />
       <Field
         name="password"
@@ -36,6 +46,7 @@ const RegisterForm = ({ handleSubmit }) => {
         type="password"
         fullWidth
         margin="normal"
+        validate={[required, min(8)]}
       />
 
       <Button raised color="primary" type="submit">Register</Button>
