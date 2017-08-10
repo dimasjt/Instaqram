@@ -12,6 +12,9 @@
 - `bundle install`
 - `yarn install`
 
+### Setup ENV vars
+- copy config/application.yml.example to config/application.yml and fill the value
+
 ## Run Application
 
 ### Development
