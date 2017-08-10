@@ -19,4 +19,4 @@
 
 ### Production
 - `rake assets:precompile RAILS_ENV=production` will automatically run yarn and webpack compile
-- `rails s -e production
+- `rails s -e production`
