@@ -35,6 +35,10 @@ class Functions::UpdateProfile < GraphQL::Function
   end
 
   def new_image(image)
-    File.open(File.join(Rails.root, "/public", image.file.url))
+    if Rails.env.production?
+      File.open(open(image.file.url))
+    else
+      File.open(File.join(Rails.root, "/public", image.file.url))
+    end
   end
 end
