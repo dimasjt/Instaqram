@@ -1,5 +1,6 @@
-- Ruby version
-**2.3.3**
+- Ruby version **2.3.3**
+- Rails version **5.1.2**
+- React version **15.6.1**
 
 ## Installation
 
@@ -18,4 +19,5 @@
 - `./bin/webpack-dev-server --hot`
 
 ### Production
-- nyusul....
+- `rake assets:precompile RAILS_ENV=production` will automatically run yarn and webpack compile
+- `rails s -e production`
