@@ -18,4 +18,5 @@
 - `./bin/webpack-dev-server --hot`
 
 ### Production
-- nyusul....
+- `rake assets:precompile RAILS_ENV=production` will automatically run yarn and webpack compile
+- `rails s -e production
