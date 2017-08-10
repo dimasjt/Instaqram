@@ -4,16 +4,16 @@
 
 ## Installation
 
-### Database
-- `rake db:create`
-- `rake db:migrate`
-
-### Dependencies
+### Install Dependencies
 - `bundle install`
 - `yarn install`
 
 ### Setup ENV vars
 - copy _config/application.yml.example_ to _config/application.yml_ and fill the value
+
+### Database
+- `rake db:create`
+- `rake db:migrate`
 
 ## Run Application
 
