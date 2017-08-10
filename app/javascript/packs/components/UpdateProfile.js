@@ -30,7 +30,7 @@ class UpdateProfile extends React.Component {
   handleUpdateProfile = (user) => {
     this.props.mutate({ variables: { user } }).then(({ data }) => {
       this.props.actions.showAlert("User updated")
-      this.props.actions.setUserByToken(data.auth_token)
+      this.props.actions.setUserByToken(data.updateProfile.auth_token)
     }).catch((err) => {
       this.props.actions.showAlert(err.message)
     })
