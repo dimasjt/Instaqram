@@ -52,7 +52,7 @@ class PhotoOpts extends React.Component {
                 <MenuItem>Edit</MenuItem>
                 <MenuItem onClick={this.deletePhoto}>Delete</MenuItem>
               </div>,
-              currentUser.id.toString() === photo.user.id,
+              currentUser && currentUser.id.toString() === photo.user.id,
             )}
             <MenuItem>Share</MenuItem>
           </div>
