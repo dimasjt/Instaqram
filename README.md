@@ -13,7 +13,7 @@
 - `yarn install`
 
 ### Setup ENV vars
-- copy config/application.yml.example to config/application.yml and fill the value
+- copy _config/application.yml.example_ to _config/application.yml_ and fill the value
 
 ## Run Application
 
