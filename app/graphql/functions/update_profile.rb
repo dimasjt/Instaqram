@@ -20,11 +20,9 @@ class Functions::UpdateProfile < GraphQL::Function
       params = args[:user].to_h
 
       if image = Image.find_by_user_id(user.id).find_by(id: params.delete("image_id"))
-        if user.image
-          user.image.file = new_image(image)
-        else
-          user.image = image
-        end
+        user.image.try(:destroy)
+        user.reload.image = image
+        user.save
       end
 
       user.update(params)
