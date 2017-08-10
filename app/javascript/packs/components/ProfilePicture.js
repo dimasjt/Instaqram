@@ -10,11 +10,14 @@ import Dropzone from "react-dropzone"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import PropTypes from "prop-types"
+import { graphql } from "react-apollo"
 
 import upload from "../utils/upload"
 
 import * as alertActions from "../actions/alert"
 import * as userActions from "../actions/user"
+
+import { UPDATE_PROFILE } from "../mutations"
 
 const mergedActions = Object.assign({}, alertActions, userActions)
 
@@ -60,11 +63,19 @@ class ProfilePicture extends React.Component {
     try {
       const result = await upload({ file: files[0], type: "User" })
       const json = await result.json()
-      window.localStorage.setItem("auth_token", json.auth_token)
-      this.props.actions.setUserByToken(json.auth_token)
+      this.setState({ imageId: json.id })
     } catch (err) {
       this.props.actions.showAlert(err.message)
     }
+  }
+  saveImage = () => {
+    this.props.updateProfile(this.state.imageId).then(({ data }) => {
+      this.props.actions.setUserByToken(data.updateProfile.auth_token)
+      this.props.actions.showAlert("Your profile picture updated")
+      this.hideDialog()
+    }).catch(({ message }) => {
+      this.props.actions.showAlert(message)
+    })
   }
   renderPlaceholder() {
     let placeholder
@@ -92,7 +103,8 @@ class ProfilePicture extends React.Component {
     return <div className={classes.placeholder}>{placeholder}</div>
   }
   render() {
-    const { user, classes } = this.props
+    const { classes, currentUser } = this.props
+    const user = (currentUser && currentUser.id.toString() === this.props.user.id) ? currentUser : this.props.user
 
     return (
       <div>
@@ -118,7 +130,7 @@ class ProfilePicture extends React.Component {
             </Dropzone>
           </DialogContent>
           <DialogActions>
-            <Button>Save</Button>
+            <Button onClick={this.saveImage} disabled={!this.state.imageId}>Save</Button>
             <Button onClick={this.hideDialog}>Cancel</Button>
           </DialogActions>
         </Dialog>
@@ -139,11 +151,22 @@ ProfilePicture.propTypes = {
   classes: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
   actions: PropTypes.object.isRequired,
+  updateProfile: PropTypes.func.isRequired,
 }
 
 const WithStyle = withStyles(styleSheet)(ProfilePicture)
 
-export default connect(
+const Connected = connect(
   (state) => state,
   (dispatch) => ({ actions: bindActionCreators(mergedActions, dispatch) }),
 )(WithStyle)
+
+export default graphql(UPDATE_PROFILE, {
+  props: ({ mutate }) => ({
+    updateProfile: (imageId) => {
+      return mutate({
+        variables: { user: { image_id: imageId } },
+      })
+    },
+  }),
+})(Connected)

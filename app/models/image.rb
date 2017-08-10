@@ -23,15 +23,18 @@ class Image < ApplicationRecord
   belongs_to :imageable, polymorphic: true, optional: true
   belongs_to :user, optional: true
 
+  scope :find_by_user_id, ->(user_id) { where(imageable_type: "User", imageable_id: user_id) }
+
   validates :imageable_type, presence: true
   validates :user, :file, presence: { if: proc { |i| i.imageable_type == "Photo" || i.imageable_type.nil? } }
 
   def decorate_json
-    case imageable_type
-    when "Photo"
-      { id: id }
-    when "User"
-      { auth_token: user.auth_token }
-    end
+    { id: id }
+    # case imageable_type
+    # when "Photo"
+    #   { id: id }
+    # when "User"
+    #   { auth_token: user.auth_token }
+    # end
   end
 end

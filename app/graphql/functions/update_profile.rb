@@ -9,17 +9,18 @@ class Functions::UpdateProfile < GraphQL::Function
     argument :caption, types.String
     argument :birthdate, types.String
     argument :password, types.String
+    argument :image_id, types.ID
   end
 
   argument :user, !UpdateProfileInput
-  type Types::UserType
+  type Types::TokenType
 
   def call(obj, args, ctx)
     if user = ctx[:current_user]
       params = args[:user].to_h
 
-      if image = ctx[:files].try(:first)
-        params[:image] = image
+      if image = Image.find_by_user_id(user.id).find_by(id: params.delete("image_id"))
+        user.image.file = new_image(image)
       end
 
       user.update(params)
@@ -27,5 +28,9 @@ class Functions::UpdateProfile < GraphQL::Function
     else
       GraphQL::ExecutionError.new("Unauthorized")
     end
+  end
+
+  def new_image(image)
+    File.open(File.join(Rails.root, "/public", image.file.url))
   end
 end
