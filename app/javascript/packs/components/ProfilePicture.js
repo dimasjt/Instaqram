@@ -26,6 +26,7 @@ const styleSheet = createStyleSheet("ProfilePicture", (theme) => ({
     width: 200,
     height: 200,
     margin: "0 auto",
+    cursor: "pointer",
   },
   uploadWrapper: theme.upload.wrapper,
   placeholder: theme.upload.placeholder,
