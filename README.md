@@ -17,7 +17,9 @@
 ### Development
 - `rails s`
 - `./bin/webpack-dev-server --hot`
+- open in browser `localhost:3000`
 
 ### Production
 - `rake assets:precompile RAILS_ENV=production` will automatically run yarn and webpack compile
 - `rails s -e production`
+- open in browser `localhost:3000`
