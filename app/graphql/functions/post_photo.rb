@@ -6,7 +6,7 @@ class Functions::PostPhoto < GraphQL::Function
   end
 
   argument :photo, !PhotoInput
-  argument :image_id, types.ID
+  argument :image_id, !types.ID
   type Types::PhotoType
 
   def call(obj, args, ctx)

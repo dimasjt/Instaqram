@@ -1,5 +1,5 @@
 class Functions::LikePhoto < GraphQL::Function
-  argument :photo_id, types.ID
+  argument :photo_id, !types.ID
   type Types::PhotoType
 
   def call(obj, args, ctx)
